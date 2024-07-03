@@ -3,4 +3,4 @@ project(encryption)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(encryption main.cpp caesar.cpp improved_caesar.cpp)
+add_executable(encryption main.cpp caesar.cpp)

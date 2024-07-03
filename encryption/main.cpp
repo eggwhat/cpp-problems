@@ -1,6 +1,5 @@
 #include <iostream>
 #include "caesar.h"
-#include "improved_caesar.h"
 
 int main() {
     std::cout << "Enter a message:" << std::endl;
@@ -10,9 +9,9 @@ int main() {
     std::cout << "Encrypted message in Caesar cipher:" << std::endl << encryptedMessage << std::endl;
     std::cout << "Decrypted message from Caesar cipher:" << std::endl
         << encryption::Caesar::decrypt(encryptedMessage) << std::endl;
-    encryptedMessage = improved_encryption::ImprovedCaesar::encrypt(message);
+    encryptedMessage = encryption::Caesar::improvedEncrypt(message);
     std::cout << "Encrypted message in improved Caesar cipher:" << std::endl << encryptedMessage << std::endl;
     std::cout << "Decrypted message from improved Caesar cipher:" << std::endl
-        << improved_encryption::ImprovedCaesar::decrypt(encryptedMessage) << std::endl;
+        << encryption::Caesar::improvedDecrypt(encryptedMessage) << std::endl;
     return 0;
 }
