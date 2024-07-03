@@ -10,4 +10,12 @@ namespace encryption {
         }
         return userInput;
     }
+
+    std::string Caesar::decrypt(std::string encryptedMessage) {
+        for (char& ch: encryptedMessage) {
+            ch = static_cast<char>((ch - Caesar::shift - Caesar::ascii_offset)
+                % Caesar::ascii_modulo + Caesar::ascii_offset);
+        }
+        return encryptedMessage;
+    }
 }
