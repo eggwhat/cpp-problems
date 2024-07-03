@@ -1,8 +1,11 @@
 #include <iostream>
+#include "caesar.h"
 
-namespace encryption {
-    int main() {
-
-        return 0;
-    }
+int main() {
+    std::cout << "Enter a message:" << std::endl;
+    std::string message, encryptedMessage;
+    std::cin >> message;
+    encryptedMessage = encryption::Caesar::encrypt(message);
+    std::cout << encryptedMessage << std::endl;
+    return 0;
 }
