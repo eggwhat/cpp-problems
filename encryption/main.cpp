@@ -11,7 +11,7 @@ int main() {
     std::cout << "Decrypted message from Caesar cipher:" << std::endl
         << encryption::Caesar::decrypt(encryptedMessage) << std::endl;
     encryptedMessage = improved_encryption::ImprovedCaesar::encrypt(message);
-    std::cout << "Encrypted message in imporved Caesar cipher:" << std::endl << encryptedMessage << std::endl;
+    std::cout << "Encrypted message in improved Caesar cipher:" << std::endl << encryptedMessage << std::endl;
     std::cout << "Decrypted message from improved Caesar cipher:" << std::endl
         << improved_encryption::ImprovedCaesar::decrypt(encryptedMessage) << std::endl;
     return 0;
