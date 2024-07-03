@@ -1,13 +1,13 @@
 #include <iostream>
 
-void printArray(int arr[], const int size) {
+void printArray(int arr[], int const size) {
     for(int i = 0; i < size; i++) {
         std::cout << arr[i] << " ";
     };
     std::cout << std::endl;
 }
 
-void selectionSort(int* arr, const int size) {
+void selectionSort(int* arr, int const size) {
     for(int i = 0; i < size; i++) {
         int min = arr[i];
         for(int j = i + 1; j < size; j++) {
@@ -35,7 +35,7 @@ struct Rectangle {
     Point p4;
 };
 
-void magicFunction(void* unknownStruct, const short flag) {
+void magicFunction(void* unknownStruct, short  const flag) {
     switch(flag) {
         case 1: {
             auto complex = (Complex*)unknownStruct;
