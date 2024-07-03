@@ -40,17 +40,17 @@ enum StructureType { complex, point, rectangle };
 void magicFunction(void* unknownStruct, StructureType const structureType) {
     switch(structureType) {
         case StructureType::complex: {
-            auto complex = (Complex*)unknownStruct;
+            auto complex = static_cast<Complex*>(unknownStruct);
             std::cout << "Complex number: " << complex->real << " + i" << complex->imaginary << std::endl;
             break;
         }
         case StructureType::point: {
-            auto point = (Point*)unknownStruct;
+            auto point = static_cast<Point*>(unknownStruct);
             std::cout << "Point x=" << point->x << " y=" << point->y << std::endl;
             break;
         }
         case StructureType::rectangle: {
-            auto rectangle = (Rectangle*)unknownStruct;
+            auto rectangle = static_cast<Rectangle*>(unknownStruct);
             std::cout << "Rectangle: " <<
                 "(" << rectangle->p1.x << "," << rectangle->p1.y << ") " <<
                 "(" << rectangle->p2.x << "," << rectangle->p2.y << ") " <<
