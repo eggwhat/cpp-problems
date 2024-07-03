@@ -1,13 +1,13 @@
 #include <iostream>
 
-void printArray(int arr[], int size) {
+void printArray(int arr[], const int size) {
     for(int i = 0; i < size; i++) {
         std::cout << arr[i] << " ";
     };
     std::cout << std::endl;
 }
 
-void selectionSort(int* arr, int size) {
+void selectionSort(int* arr, const int size) {
     for(int i = 0; i < size; i++) {
         int min = arr[i];
         for(int j = i + 1; j < size; j++) {
@@ -15,6 +15,50 @@ void selectionSort(int* arr, int size) {
                 min = arr[j];
         }
         std::swap(arr[i], min);
+    }
+}
+
+struct Complex {
+    double real;
+    double imaginary;
+};
+
+struct Point {
+    int x;
+    int y;
+};
+
+struct Rectangle {
+    Point p1;
+    Point p2;
+    Point p3;
+    Point p4;
+};
+
+void magicFunction(void* unknownStruct, const short flag) {
+    switch(flag) {
+        case 1: {
+            auto complex = (Complex*)unknownStruct;
+            std::cout << "Complex number: " << complex->real << " + i" << complex->imaginary << std::endl;
+            break;
+        }
+        case 2: {
+            auto point = (Point*)unknownStruct;
+            std::cout << "Point x=" << point->x << " y=" << point->y << std::endl;
+            break;
+        }
+        case 3: {
+            auto rectangle = (Rectangle*)unknownStruct;
+            std::cout << "Rectangle: " <<
+                "(" << rectangle->p1.x << "," << rectangle->p1.y << ") " <<
+                "(" << rectangle->p2.x << "," << rectangle->p2.y << ") " <<
+                "(" << rectangle->p3.x << "," << rectangle->p3.y << ") " <<
+                "(" << rectangle->p4.x << "," << rectangle->p4.y << ") ";
+            break;
+        }
+        default:
+            std::cout << "Unknown object!" << std::endl;
+            break;
     }
 }
 
@@ -31,6 +75,18 @@ int main() {
     std::cout << "Inserting large double: " << bigDouble << " to int array" << std::endl;
     a[3] = bigDouble;
     printArray(a, arraySize);
+
+    auto complex = new Complex {1,2};
+    auto point = new Point {4, 20};
+    auto rectangle = new Rectangle { {1,2}, {2,2}, {2, 4}, {1, 4} };
+
+    magicFunction(complex, 1);
+    magicFunction(point, 2);
+    magicFunction(rectangle, 3);
+
+    delete complex;
+    delete point;
+    delete rectangle;
 
     return 0;
 }
