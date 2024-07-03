@@ -1,6 +1,8 @@
 #include <iostream>
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+namespace encryption {
+    int main() {
+
+        return 0;
+    }
 }
