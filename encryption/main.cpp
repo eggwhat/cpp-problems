@@ -3,9 +3,9 @@
 
 int main() {
     std::cout << "Enter a message:" << std::endl;
-    std::string message, encryptedMessage;
+    std::string message;
     std::cin >> message;
-    encryptedMessage = encryption::Caesar::encrypt(message);
+    std::string encryptedMessage = encryption::Caesar::encrypt(message);
     std::cout << encryptedMessage << std::endl;
     return 0;
 }
