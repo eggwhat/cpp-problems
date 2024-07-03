@@ -35,19 +35,21 @@ struct Rectangle {
     Point p4;
 };
 
-void magicFunction(void* unknownStruct, short  const flag) {
-    switch(flag) {
-        case 1: {
+enum StructureType { complex, point, rectangle };
+
+void magicFunction(void* unknownStruct, StructureType const structureType) {
+    switch(structureType) {
+        case StructureType::complex: {
             auto complex = (Complex*)unknownStruct;
             std::cout << "Complex number: " << complex->real << " + i" << complex->imaginary << std::endl;
             break;
         }
-        case 2: {
+        case StructureType::point: {
             auto point = (Point*)unknownStruct;
             std::cout << "Point x=" << point->x << " y=" << point->y << std::endl;
             break;
         }
-        case 3: {
+        case StructureType::rectangle: {
             auto rectangle = (Rectangle*)unknownStruct;
             std::cout << "Rectangle: " <<
                 "(" << rectangle->p1.x << "," << rectangle->p1.y << ") " <<
@@ -80,9 +82,9 @@ int main() {
     auto point = new Point {4, 20};
     auto rectangle = new Rectangle { {1,2}, {2,2}, {2, 4}, {1, 4} };
 
-    magicFunction(complex, 1);
-    magicFunction(point, 2);
-    magicFunction(rectangle, 3);
+    magicFunction(complex, StructureType::complex);
+    magicFunction(point, StructureType::point);
+    magicFunction(rectangle, StructureType::rectangle);
 
     delete complex;
     delete point;
