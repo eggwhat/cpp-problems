@@ -23,5 +23,19 @@ int main() {
     int intLowerThanMin = intMin - 1;
     std::cout << "Confirmation: intMin - 1 = " << intLowerThanMin << std::endl;
 
+    unsigned char uCharMin = 0;
+    std::cout << "Minimal value of unsigned char: " << +uCharMin << std::endl;
+    uCharMin = uCharMin - 1;
+    std::cout << "Confirmation: uCharMin - 1 = " << +(uCharMin) << std::endl;
+
+    unsigned short uShortMin = 0;
+    std::cout << "Minimal value of unsigned short: " << uShortMin << std::endl;
+    uShortMin = uShortMin - 1;
+    std::cout << "Confirmation: uShortMin - 1 = " << uShortMin << std::endl;
+
+    unsigned int uIntMin = 0;
+    std::cout << "Minimal value of unsigned int: " << uIntMin << std::endl;
+    std::cout << "Confirmation: uIntMin - 1 = " << uIntMin - 1 << std::endl;
+
     return 0;
 }
