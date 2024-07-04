@@ -8,4 +8,6 @@ add_executable(banking_system main.cpp
         person.cpp
         person.h
         checking_account.cpp
-        checking_account.h)
+        checking_account.h
+        saving_account.cpp
+        saving_account.h)
