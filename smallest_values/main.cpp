@@ -6,8 +6,6 @@ double calculateMinimalValue(int size) {
     return -std::pow(2,size)/2;
 }
 
-
-
 int main() {
     int const bitsInByte = 8;
 
@@ -40,22 +38,44 @@ int main() {
     std::cout << "Minimal value of unsigned int: " << uIntMin << std::endl;
     std::cout << "Confirmation: uIntMin - 1 = " << uIntMin - 1 << std::endl;
 
-    int const floatingPointBase = 2;
+    //int const floatingPointBase = 2;
 
     //int const floatMaxExponent = std::numeric_limits<float>::max_exponent;
     //int const floatMantissaLength = std::numeric_limits<float>::digits;
-    float const minFloat = -std::numeric_limits<float>::max();
-    std::cout << "Smallest float: " << minFloat << std::endl;
+    float const floatMin = -std::numeric_limits<float>::max();
+    std::cout << "Smallest float: " << floatMin << std::endl;
 
     //int const doubleMaxExponent = std::numeric_limits<double>::max_exponent;
     //int const doubleMantissaLength = std::numeric_limits<double>::digits;
-    double const minDouble = -std::numeric_limits<double>::max();
-    std::cout << "Smallest double: " << minDouble << std::endl;
+    double const doubleMin = -std::numeric_limits<double>::max();
+    std::cout << "Smallest double: " << doubleMin << std::endl;
 
     //int const longDoubleMaxExponent = std::numeric_limits<long double>::max_exponent;
     //int const longDoubleMantissaLength = std::numeric_limits<long double>::digits;
-    long double const minLongDouble = -std::numeric_limits<long double>::max();
-    std::cout << "Smallest long double: " << minLongDouble << std::endl;
+    long double const longDoubleMin = -std::numeric_limits<long double>::max();
+    std::cout << "Smallest long double: " << longDoubleMin << std::endl;
+
+    char* charPointerMin = new char(static_cast<char>(calculateMinimalValue(sizeof(char) * bitsInByte)));
+    std::cout << "Minimal value of char pointer: " << +*charPointerMin << std::endl;
+    *charPointerMin -= 1;
+    std::cout << "Confirmation: charPointer - 1 = " << +*charPointerMin << std::endl;
+    delete charPointerMin;
+
+    auto intPointerMin = new int(static_cast<int>(calculateMinimalValue(sizeof(int) * bitsInByte)));
+    std::cout << "Minimal value of int pointer: " << *intPointerMin << std::endl;
+    *intPointerMin -= 1;
+    std::cout << "Confirmation: intMin - 1 = " << *intPointerMin << std::endl;
+    delete intPointerMin;
+
+    void* voidPointer = &charMin;
+    std::cout << "Minimal value of void pointer as short: " << +*static_cast<char*>(voidPointer) << std::endl;
+    *static_cast<char*>(voidPointer) -= 1;
+    std::cout << "Confirmation: " << +*static_cast<char*>(voidPointer) << std::endl;
+
+    voidPointer = &intMin;
+    std::cout << "Minimal value of void pointer as int: " << +*static_cast<int*>(voidPointer) << std::endl;
+    *static_cast<int*>(voidPointer) -= 1;
+    std::cout << "Confirmation: " << +*static_cast<int*>(voidPointer) << std::endl;
 
     return 0;
 }
