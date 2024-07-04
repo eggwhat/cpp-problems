@@ -1,7 +1,7 @@
 #include "modern_caesar.h"
 
-int euclideanModulo(int a, int b) {
-    return ((a) < 0 ? ((((a) % (b)) + (b)) % (b)) : ((a) % (b)));
+int euclideanModulo(int const& dividend, int const& divisor) {
+    return dividend < 0 ? (dividend % divisor + divisor) % divisor : dividend % divisor;
 }
 
 namespace encryption {
