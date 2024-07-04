@@ -1,43 +1,25 @@
 #include <iostream>
-#include "caesar.h"
+#include <string>
 
-int euclideanModulo(int a, int b) {
-    return ((a) < 0 ? ((((a) % (b)) + (b)) % (b)) : ((a) % (b)));
-}
+#include "caesar.h"
 
 namespace encryption {
 
-    std::string Caesar::encrypt(std::string userInput) {
-        for (char& ch: userInput) {
-            ch = static_cast<char>((ch + Caesar::shift - Caesar::ascii_offset)
-                % Caesar::ascii_modulo + Caesar::ascii_offset);
-        }
-        return userInput;
-    }
-
-    std::string Caesar::decrypt(std::string encryptedMessage) {
-        for (char& ch: encryptedMessage) {
-            ch = static_cast<char>((ch - Caesar::shift - Caesar::ascii_offset)
-                % Caesar::ascii_modulo + Caesar::ascii_offset);
+    std::string Caesar::encrypt(std::string const& userInput) {
+        std::string encryptedMessage;
+        for (char const& ch: userInput) {
+            encryptedMessage += static_cast<char>((ch + shift - ascii_offset)
+                % ascii_modulo + ascii_offset);
         }
         return encryptedMessage;
     }
 
-    std::string Caesar::improvedEncrypt(std::string userInput) {
-        srand(Caesar::seed);
-        for (char& ch: userInput) {
-            ch = static_cast<char>(euclideanModulo((ch + rand() % Caesar::ascii_offset - Caesar::ascii_offset),
-                Caesar::ascii_modulo) + Caesar::ascii_offset);
+    std::string Caesar::decrypt(std::string const& encryptedMessage) {
+        std::string decryptedMessage;
+        for (char const& ch: encryptedMessage) {
+            decryptedMessage += static_cast<char>((ch - shift - ascii_offset)
+                % ascii_modulo + ascii_offset);
         }
-        return userInput;
-    }
-
-    std::string Caesar::improvedDecrypt(std::string encryptedMessage) {
-        srand(Caesar::seed);
-        for (char& ch: encryptedMessage) {
-            ch = static_cast<char>(euclideanModulo((ch - rand() % Caesar::ascii_offset - Caesar::ascii_offset),
-                Caesar::ascii_modulo) + Caesar::ascii_offset);
-        }
-        return encryptedMessage;
+        return decryptedMessage;
     }
 }

@@ -4,9 +4,14 @@
 
 namespace encryption {
 
-    class Caesar: public IEncryption {
+    class ModernCaesar: public IEncryption {
+    private:
+        int const seed;
     public:
-        ~Caesar() override = default;
+        explicit ModernCaesar(int seed)
+            : seed(seed) {
+        }
+        ~ModernCaesar() override = default;
 
         std::string encrypt(std::string const& userInput) override;
         std::string decrypt(std::string const& encryptedMessage) override;
