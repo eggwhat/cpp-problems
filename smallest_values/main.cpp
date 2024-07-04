@@ -1,9 +1,12 @@
 #include <iostream>
 #include <cmath>
+#include <limits>
 
 double calculateMinimalValue(int size) {
     return -std::pow(2,size)/2;
 }
+
+
 
 int main() {
     int const bitsInByte = 8;
@@ -36,6 +39,23 @@ int main() {
     unsigned int uIntMin = 0;
     std::cout << "Minimal value of unsigned int: " << uIntMin << std::endl;
     std::cout << "Confirmation: uIntMin - 1 = " << uIntMin - 1 << std::endl;
+
+    int const floatingPointBase = 2;
+
+    //int const floatMaxExponent = std::numeric_limits<float>::max_exponent;
+    //int const floatMantissaLength = std::numeric_limits<float>::digits;
+    float const minFloat = -std::numeric_limits<float>::max();
+    std::cout << "Smallest float: " << minFloat << std::endl;
+
+    //int const doubleMaxExponent = std::numeric_limits<double>::max_exponent;
+    //int const doubleMantissaLength = std::numeric_limits<double>::digits;
+    double const minDouble = -std::numeric_limits<double>::max();
+    std::cout << "Smallest double: " << minDouble << std::endl;
+
+    //int const longDoubleMaxExponent = std::numeric_limits<long double>::max_exponent;
+    //int const longDoubleMantissaLength = std::numeric_limits<long double>::digits;
+    long double const minLongDouble = -std::numeric_limits<long double>::max();
+    std::cout << "Smallest long double: " << minLongDouble << std::endl;
 
     return 0;
 }
