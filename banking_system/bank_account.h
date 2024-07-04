@@ -8,7 +8,9 @@ namespace bank {
         Person client;
     public:
         virtual ~BankAccount() = default;
-
         virtual std::string getAcountDetails() = 0;
+
+        void depositMoney();
+        void withdrawMoney();
     };
 }
