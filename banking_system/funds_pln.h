@@ -6,6 +6,8 @@ namespace bank {
     class FundsPLN: public IFunds {
 
     public:
+        explicit FundsPLN(double const _amountOfMoney): IFunds(_amountOfMoney) {}
+
         double convertToPLN() override;
         double convertToUSD() override;
         double convertToEUR() override;

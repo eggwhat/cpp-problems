@@ -4,7 +4,6 @@ project(banking_system)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(banking_system main.cpp
-        bank_account.h
         person.cpp
         person.h
         i_account.h
@@ -19,4 +18,8 @@ add_executable(banking_system main.cpp
         funds_usd.cpp
         funds_usd.h
         funds_eur.cpp
-        funds_eur.h)
+        funds_eur.h
+        premium_account_manager.cpp
+        premium_account_manager.h
+        standard_account_manager.cpp
+        standard_account_manager.h)

@@ -12,7 +12,8 @@ namespace bank {
         virtual ~IManager() = 0;
 
         virtual std::string getAccountDetails() = 0;
-        virtual std::unique_ptr<IAccount> createAccount() = 0;
+        virtual std::unique_ptr<IAccount> createAccount(std::string const& _firstName, std::string const& _middleName,
+            std::string const& _lastName) = 0;
         virtual void depositMoney() = 0;
         virtual void withdrawMoney() = 0;
     };
