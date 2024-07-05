@@ -7,10 +7,10 @@ add_executable(banking_system main.cpp
         bank_account.h
         person.cpp
         person.h
-        checking_account.cpp
-        checking_account.h
-        saving_account.cpp
-        saving_account.h
         i_account.h
         i_funds.h
-        i_manager.h)
+        i_manager.h
+        standard_account.cpp
+        standard_account.h
+        premium_account.cpp
+        premium_account.h)
