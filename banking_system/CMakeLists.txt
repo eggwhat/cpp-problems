@@ -12,4 +12,5 @@ add_executable(banking_system main.cpp
         saving_account.cpp
         saving_account.h
         i_account.h
-        i_funds.h)
+        i_funds.h
+        i_manager.h)

@@ -8,9 +8,12 @@
 namespace bank {
     class IAccount {
     private:
-        bank::Person person;
-        bank::IFunds funds;
+        std::unique_ptr<Person> person;
+        IFunds funds;
     public:
+        explicit IAccount(std::unique_ptr<Person> const& _person): person(_person) {}
+        virtual ~IAccount() = default;
+
         virtual std::string getDetail() = 0;
     };
 }
