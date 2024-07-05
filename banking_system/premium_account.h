@@ -3,11 +3,13 @@
 
 namespace bank {
 
-class PremiumAccount: public IAccount {
-    explicit PremiumAccount(std::unique_ptr<Person>& _person, std::unique_ptr<IFunds> _funds):
-        IAccount(_person, std::move(_funds)) {}
+    class PremiumAccount: public IAccount {
+    private:
+    public:
+        explicit PremiumAccount(std::unique_ptr<Person> const& _person, std::unique_ptr<IFunds> _funds):
+            IAccount(_person, std::move(_funds)) {}
 
-    std::string getDetail() override;
-};
+        std::string getDetails() override;
+    };
 
 } // bank

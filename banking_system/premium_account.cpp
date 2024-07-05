@@ -6,4 +6,9 @@
 
 namespace bank {
 
+    std::string PremiumAccount::getDetails() {
+        return person->getPersonDetails() + funds->getDetails();
+    }
+
+
 } // bank

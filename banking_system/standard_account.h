@@ -7,7 +7,7 @@ namespace bank {
         explicit StandardAccount(std::unique_ptr<Person>& _person, std::unique_ptr<IFunds> _funds):
             IAccount(_person, std::move(_funds)) {}
 
-        std::string getDetail() override;
+        std::string getDetails() override;
     };
 
 } // bank

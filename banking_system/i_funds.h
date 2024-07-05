@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 namespace bank {
     class IFunds {
     private:
@@ -11,6 +13,6 @@ namespace bank {
         virtual double convertToPLN() = 0;
         virtual double convertToUSD() = 0;
         virtual double convertToEUR() = 0;
-
+        virtual std::string getDetails() = 0;
     };
 }
