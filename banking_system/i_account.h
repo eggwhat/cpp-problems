@@ -1,9 +1,13 @@
 #pragma once
 
 #include "person.h"
+#include "i_funds.h"
 
-class IAccount {
-private:
-    bank::Person person;
-public:
-};
+namespace bank {
+    class IAccount {
+    private:
+        bank::Person person;
+        bank::IFunds funds;
+    public:
+    };
+}
