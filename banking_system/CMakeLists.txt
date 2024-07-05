@@ -13,4 +13,10 @@ add_executable(banking_system main.cpp
         standard_account.cpp
         standard_account.h
         premium_account.cpp
-        premium_account.h)
+        premium_account.h
+        funds_pln.cpp
+        funds_pln.h
+        funds_usd.cpp
+        funds_usd.h
+        funds_eur.cpp
+        funds_eur.h)

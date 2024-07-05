@@ -1,16 +1,15 @@
-//
-// Created by Piotr Padamczyk on 05/07/2024.
-//
+#pragma once
 
-#ifndef FUNDS_USD_H
-#define FUNDS_USD_H
+#include "i_funds.h"
 
+namespace bank {
+    class FundsUSD: public IFunds {
 
+    public:
+        double convertToPLN() override;
+        double convertToUSD() override;
+        double convertToEUR() override;
+        std::string getDetails() override;
 
-class funds_usd {
-
-};
-
-
-
-#endif //FUNDS_USD_H
+    };
+}
