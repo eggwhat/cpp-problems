@@ -2,7 +2,7 @@
 #include <cmath>
 #include <limits>
 
-double calculateMinimalValue(int const& size) {
+double calculateMinimalValue(int size) {
     return -std::pow(2,size)/2;
 }
 
