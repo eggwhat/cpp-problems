@@ -8,8 +8,8 @@ namespace encryption {
     private:
         int const seed;
     public:
-        explicit ModernCaesar(int seed)
-            : seed(seed) {
+        explicit ModernCaesar(int _seed)
+            : seed(_seed) {
         }
         std::string encrypt(std::string const& userInput) override;
         std::string decrypt(std::string const& encryptedMessage) override;
