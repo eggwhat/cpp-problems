@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "caesar.h"
 #include "modern_caesar.h"
 
