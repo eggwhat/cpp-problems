@@ -21,6 +21,6 @@ namespace bank {
     }
 
     std::string StandardAccountManager::getAccountDetails() {
-
+        return "";
     }
 } // bank
