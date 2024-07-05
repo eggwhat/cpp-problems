@@ -4,8 +4,9 @@
 namespace bank {
     class Person {
     private:
-        std::string name;
-        std::string surname;
+        std::string firstName;
+        std::string middleName;
+        std::string lastName;
     public:
         std::string getPersonDetails();
     };

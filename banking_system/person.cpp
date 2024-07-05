@@ -2,7 +2,7 @@
 
 namespace bank {
     std::string Person::getPersonDetails() {
-        return name + " " + surname;
+        return !middleName.empty() ? firstName + " " + middleName + " " + lastName : firstName + " " + lastName;
     }
 
 } // bank
