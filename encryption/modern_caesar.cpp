@@ -5,7 +5,7 @@ int euclideanModulo(int const& dividend, int const& divisor) {
 }
 
 namespace encryption {
-    std::string ModernCaesar::encrypt(std::string const& userInput) {
+    std::string ModernCaesar::encrypt(std::string const& userInput) const {
         srand(seed);
         std::string encryptedMessage;
         for (char const& ch: userInput) {
@@ -15,7 +15,7 @@ namespace encryption {
         return encryptedMessage;
     }
 
-    std::string ModernCaesar::decrypt(std::string const& encryptedMessage) {
+    std::string ModernCaesar::decrypt(std::string const& encryptedMessage) const {
         srand(seed);
         std::string decryptedMessage;
         for (char const& ch: encryptedMessage) {

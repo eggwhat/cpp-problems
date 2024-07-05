@@ -5,7 +5,7 @@
 
 namespace encryption {
 
-    std::string Caesar::encrypt(std::string const& userInput) {
+    std::string Caesar::encrypt(std::string const& userInput) const {
         std::string encryptedMessage;
         for (char const& ch: userInput) {
             encryptedMessage += static_cast<char>((ch + shift - ascii_offset)
@@ -14,7 +14,7 @@ namespace encryption {
         return encryptedMessage;
     }
 
-    std::string Caesar::decrypt(std::string const& encryptedMessage) {
+    std::string Caesar::decrypt(std::string const& encryptedMessage) const {
         std::string decryptedMessage;
         for (char const& ch: encryptedMessage) {
             decryptedMessage += static_cast<char>((ch - shift - ascii_offset)

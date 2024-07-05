@@ -3,20 +3,24 @@
 #include "caesar.h"
 #include "modern_caesar.h"
 
+void performEncryption(encryption::IEncryption const& cipher, std::string const& message) {
+    std::string encryptedMessage = cipher.encrypt(message);
+    std::cout << "encrypted message:" << std::endl << encryptedMessage << std::endl;
+    std::cout << "decrypted message:" << std::endl << cipher.decrypt(encryptedMessage) << std::endl;
+}
+
 int main() {
-    encryption::Caesar caesarCipher;
     std::cout << "Enter a message:" << std::endl;
     std::string message;
     std::getline(std::cin, message);
-    std::string encryptedMessage = caesarCipher.encrypt(message);
-    std::cout << "Encrypted message in Caesar cipher:" << std::endl << encryptedMessage << std::endl;
-    std::cout << "Decrypted message from Caesar cipher:" << std::endl
-        << caesarCipher.decrypt(encryptedMessage) << std::endl;
 
+    std::cout << "Classic Caesar:" << std::endl;
+    encryption::Caesar caesarCipher;
+    performEncryption(caesarCipher, message);
+
+    std::cout << "Modern Caesar:" << std::endl;
     encryption::ModernCaesar modernCaesarCipher(1234);
-    encryptedMessage = modernCaesarCipher.encrypt(message);
-    std::cout << "Encrypted message in improved Caesar cipher:" << std::endl << encryptedMessage << std::endl;
-    std::cout << "Decrypted message from improved Caesar cipher:" << std::endl
-        << modernCaesarCipher.decrypt(encryptedMessage) << std::endl;
+    performEncryption(modernCaesarCipher, message);
+
     return 0;
 }
