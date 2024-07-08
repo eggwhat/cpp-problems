@@ -13,8 +13,14 @@ namespace bank {
     }
 
     void Maintance::listClients() const {
-        for(unsigned int i = 0; i < m_clients.size(); ++i) {
-            std::cout << i << ": " << m_clients[i]->getPersonDetails() << std::endl;
+        for(auto const& client: m_clients) {
+            std::cout << "Client ID: " << client->id << " " << client->getPersonDetails() << std::endl;
+        }
+    }
+
+    void Maintance::listClientAccount(std::vector<std::unique_ptr<IAccount>> const& accounts) {
+        for(int i = 0; i < accounts.size(); ++i) {
+            std::cout << i << ": " << accounts[i]->getDetails() << std::endl;
         }
     }
 

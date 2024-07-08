@@ -6,6 +6,7 @@
 
 #include "person.h"
 #include "i_funds.h"
+#include "i_manager.h"
 
 namespace bank {
     class IAccount {
@@ -22,5 +23,6 @@ namespace bank {
         void withdrawMoney(double const money) const { m_funds->withdrawMoney(money); }
 
         virtual std::string getDetails() = 0;
+        virtual std::unique_ptr<IManager> getAccountManager() = 0;
     };
 }

@@ -10,6 +10,7 @@ namespace bank {
             IAccount(std::move(person), std::move(funds)) {}
 
         std::string getDetails() override;
+        std::unique_ptr<IManager> getAccountManager() override;
     };
 
 } // bank
