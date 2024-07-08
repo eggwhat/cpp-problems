@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 
 namespace bank {
     class IFunds {
@@ -11,7 +12,16 @@ namespace bank {
         virtual ~IFunds() = default;
 
         double getAmountOfMoney() const { return amountOfMoney; };
+        void depositMoney(double const money) { amountOfMoney += money; }
+        void withdrawMoney(double const money) {
+            if(0.0 > amountOfMoney - money) {
+                std::cout << "You don't have that much money!";
+                return;
+            }
+            amountOfMoney -= money;
+        }
 
+        virtual void withdrawMoney() = 0;
         virtual double convertToPLN() = 0;
         virtual double convertToUSD() = 0;
         virtual double convertToEUR() = 0;

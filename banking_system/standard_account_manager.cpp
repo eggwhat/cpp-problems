@@ -12,12 +12,12 @@ namespace bank {
         return std::make_unique<StandardAccount>(std::move(person), std::move(funds));
     }
 
-    void StandardAccountManager::depositMoney(std::unique_ptr<IAccount> account) {
-
+    void StandardAccountManager::depositMoney(std::unique_ptr<IAccount> account, double const money) {
+        account->depositMoney(money);
     }
 
-    void StandardAccountManager::withdrawMoney(std::unique_ptr<IAccount>account) {
-
+    void StandardAccountManager::withdrawMoney(std::unique_ptr<IAccount>account, double const money) {
+        account->withdrawMoney(money);
     }
 
     std::string StandardAccountManager::getAccountDetails(std::unique_ptr<IAccount> account) {

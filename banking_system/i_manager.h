@@ -14,7 +14,7 @@ namespace bank {
         virtual std::string getAccountDetails(std::unique_ptr<IAccount> account) = 0;
         virtual std::unique_ptr<IAccount> createAccount(std::string const& firstName, std::string const& middleName,
             std::string const& lastName) = 0;
-        virtual void depositMoney(std::unique_ptr<IAccount> account) = 0;
-        virtual void withdrawMoney(std::unique_ptr<IAccount> account) = 0;
+        virtual void depositMoney(std::unique_ptr<IAccount> account, double money) = 0;
+        virtual void withdrawMoney(std::unique_ptr<IAccount> account, double money) = 0;
     };
 }

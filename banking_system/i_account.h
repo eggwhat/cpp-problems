@@ -17,6 +17,9 @@ namespace bank {
             m_person(std::move(person)), m_funds(std::move(funds)) {}
         virtual ~IAccount() = default;
 
+        void depositMoney(double const money) { m_funds->depositMoney(money); }
+        void withdrawMoney(double const money) { m_funds->withdrawMoney(money); }
+
         virtual std::string getDetails() = 0;
     };
 }

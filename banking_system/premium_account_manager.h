@@ -8,7 +8,7 @@ namespace bank {
         std::string getAccountDetails(std::unique_ptr<IAccount> account) override;
         std::unique_ptr<IAccount> createAccount(std::string const& firstName, std::string const& middleName,
             std::string const& lastName) override;
-        void depositMoney(std::unique_ptr<IAccount> account) override;
-        void withdrawMoney(std::unique_ptr<IAccount> account) override;
+        void depositMoney(std::unique_ptr<IAccount> account, double money) override;
+        void withdrawMoney(std::unique_ptr<IAccount> account, double money) override;
     };
 }
