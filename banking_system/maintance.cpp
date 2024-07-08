@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <iterator>
 #include <iostream>
+#include <stdexcept>
+
 
 namespace bank {
     Maintance::Maintance() {
@@ -10,19 +12,20 @@ namespace bank {
         m_accounts = std::vector<std::unique_ptr<IAccount>>();
     }
 
-    std::unique_ptr<IAccount> Maintance::maintance(Person const& person) {
-        auto it = std::find_if(std::begin(m_accounts), std::end(m_accounts),
-            [&] (std::unique_ptr<IAccount> const& account) { return person.id == account->getUserId();});
-        if(it != std::end(m_accounts)) {
-            return std::move(*it);
-        }
-        std::cout << "User not found" << std::endl;
-        return nullptr;
-    }
-
     void Maintance::listClients() const {
         for(unsigned int i = 0; i < m_clients.size(); ++i) {
             std::cout << i << ": " << m_clients[i]->getPersonDetails() << std::endl;
         }
+    }
+
+    std::vector<std::unique_ptr<IAccount>> Maintance::findClientAccounts(unsigned int const clientId) {
+        std::vector<std::unique_ptr<IAccount>> matches;
+        auto it = std::copy_if(std::begin(m_accounts), std::end(m_accounts),
+            std::back_inserter(matches), [&] (std::unique_ptr<IAccount> const& account)
+            { return clientId == account->getUserId();});
+        if(!matches.empty()) {
+            return matches;
+        }
+        throw std::runtime_error("User not found!");
     }
 } // bank

@@ -13,7 +13,7 @@ namespace bank {
     public:
         Maintance();
 
-        std::unique_ptr<IAccount> maintance(Person const& person);
         void listClients() const;
+        std::vector<std::unique_ptr<IAccount>> findClientAccounts(unsigned int const clientId);
     };
 }
