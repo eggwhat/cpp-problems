@@ -11,7 +11,7 @@ namespace bank {
     }
 
     std::unique_ptr<IManager> PremiumAccount::getAccountManager() {
-        return std::unique_ptr<PremiumAccountManager>();
+        return std::move(std::unique_ptr<PremiumAccountManager>());
     }
 
 } // bank

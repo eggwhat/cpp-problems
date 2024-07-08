@@ -34,4 +34,8 @@ namespace bank {
         }
         throw std::runtime_error("User not found!");
     }
+
+    std::unique_ptr<IManager> Maintance::chooseAccount(std::unique_ptr<IAccount> const& account) {
+        return std::move(account->getAccountManager());
+    }
 } // bank

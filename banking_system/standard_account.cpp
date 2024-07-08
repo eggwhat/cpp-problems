@@ -8,7 +8,7 @@ namespace bank {
     }
 
     std::unique_ptr<IManager> StandardAccount::getAccountManager() {
-        return std::unique_ptr<StandardAccountManager>();
+        return std::move(std::unique_ptr<StandardAccountManager>());
     }
 
 } // bank
