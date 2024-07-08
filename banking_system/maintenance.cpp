@@ -38,6 +38,10 @@ namespace bank {
         throw std::runtime_error("User not found!");
     }
 
+    void Maintenance::createAccount(IManager& manager) {
+        manager.createAccount("", "","");
+    }
+
     std::unique_ptr<IManager> Maintenance::createAccountManager(std::shared_ptr<IAccount> const& account) {
         if (account->accountType == IAccount::AccountType::Standard) {
             return std::make_unique<StandardAccountManager>();

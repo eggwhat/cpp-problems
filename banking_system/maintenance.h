@@ -17,7 +17,7 @@ namespace bank {
         void listClients() const;
         static void listClientAccount(std::vector<std::unique_ptr<IAccount>> const& accounts) ;
         std::vector<std::shared_ptr<IAccount>> findClientAccounts(unsigned int clientId);
-        void createAccount();
+        void createAccount(IManager& manager);
         static std::unique_ptr<IManager> createAccountManager(std::shared_ptr<IAccount> const& account);
     };
 }
