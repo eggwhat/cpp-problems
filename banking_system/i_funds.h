@@ -21,7 +21,6 @@ namespace bank {
             amountOfMoney -= money;
         }
 
-        virtual void withdrawMoney() = 0;
         virtual double convertToPLN() = 0;
         virtual double convertToUSD() = 0;
         virtual double convertToEUR() = 0;

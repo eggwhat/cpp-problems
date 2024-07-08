@@ -4,6 +4,7 @@
 
 #include "person.h"
 #include "i_account.h"
+#include "i_manager.h"
 
 namespace bank {
     class Maintenance {

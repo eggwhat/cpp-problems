@@ -5,6 +5,9 @@
 #include <iostream>
 #include <stdexcept>
 
+#include "premium_account_manager.h"
+#include "standard_account_manager.h"
+
 
 namespace bank {
     Maintenance::Maintenance() {
@@ -36,6 +39,11 @@ namespace bank {
     }
 
     std::unique_ptr<IManager> Maintenance::chooseAccount(std::unique_ptr<IAccount> const& account) {
-        return std::move(account->getAccountManager());
+        if (account->accountType == IAccount::AccountType::Standard) {
+            return std::make_unique<StandardAccountManager>();
+        }
+        else {
+            return std::make_unique<PremiumAccountManager>();
+        }
     }
 } // bank

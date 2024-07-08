@@ -3,12 +3,13 @@
 #include "standard_account_manager.h"
 
 namespace bank {
-    std::string StandardAccount::getDetails() {
-        return m_person->getPersonDetails() + '\n' + m_funds->getDetails();
+    StandardAccount::StandardAccount(std::shared_ptr<Person> person, std::unique_ptr<IFunds> funds):
+                    IAccount(std::move(person), std::move(funds)) {
+        accountType = AccountType::Standard;
     }
 
-    std::unique_ptr<IManager> StandardAccount::getAccountManager() {
-        return std::move(std::unique_ptr<StandardAccountManager>());
+    std::string StandardAccount::getDetails() {
+        return m_person->getPersonDetails() + '\n' + m_funds->getDetails();
     }
 
 } // bank
