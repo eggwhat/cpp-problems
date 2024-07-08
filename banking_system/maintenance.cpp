@@ -1,4 +1,4 @@
-#include "maintance.h"
+#include "maintenance.h"
 
 #include <algorithm>
 #include <iterator>
@@ -7,24 +7,24 @@
 
 
 namespace bank {
-    Maintance::Maintance() {
+    Maintenance::Maintenance() {
         m_clients = std::vector<std::shared_ptr<Person>>();
         m_accounts = std::vector<std::unique_ptr<IAccount>>();
     }
 
-    void Maintance::listClients() const {
+    void Maintenance::listClients() const {
         for(auto const& client: m_clients) {
             std::cout << "Client ID: " << client->id << " " << client->getPersonDetails() << std::endl;
         }
     }
 
-    void Maintance::listClientAccount(std::vector<std::unique_ptr<IAccount>> const& accounts) {
+    void Maintenance::listClientAccount(std::vector<std::unique_ptr<IAccount>> const& accounts) {
         for(int i = 0; i < accounts.size(); ++i) {
             std::cout << i << ": " << accounts[i]->getDetails() << std::endl;
         }
     }
 
-    std::vector<std::unique_ptr<IAccount>> Maintance::findClientAccounts(unsigned int const clientId) {
+    std::vector<std::unique_ptr<IAccount>> Maintenance::findClientAccounts(unsigned int const clientId) {
         std::vector<std::unique_ptr<IAccount>> matches;
         auto it = std::copy_if(std::begin(m_accounts), std::end(m_accounts),
             std::back_inserter(matches), [&] (std::unique_ptr<IAccount> const& account)
@@ -35,7 +35,7 @@ namespace bank {
         throw std::runtime_error("User not found!");
     }
 
-    std::unique_ptr<IManager> Maintance::chooseAccount(std::unique_ptr<IAccount> const& account) {
+    std::unique_ptr<IManager> Maintenance::chooseAccount(std::unique_ptr<IAccount> const& account) {
         return std::move(account->getAccountManager());
     }
 } // bank

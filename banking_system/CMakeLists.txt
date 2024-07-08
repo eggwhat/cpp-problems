@@ -8,7 +8,6 @@ add_executable(banking_system main.cpp
         person.h
         i_account.h
         i_funds.h
-        i_manager.h
         standard_account.cpp
         standard_account.h
         premium_account.cpp
@@ -19,9 +18,10 @@ add_executable(banking_system main.cpp
         funds_usd.h
         funds_eur.cpp
         funds_eur.h
+        i_manager.h
         premium_account_manager.cpp
         premium_account_manager.h
         standard_account_manager.cpp
         standard_account_manager.h
-        maintance.cpp
-        maintance.h)
+        maintenance.cpp
+        maintenance.h)
