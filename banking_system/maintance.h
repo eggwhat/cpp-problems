@@ -14,5 +14,6 @@ namespace bank {
         Maintance();
 
         std::unique_ptr<IAccount> maintance(Person const& person);
+        void listClients() const;
     };
 }
