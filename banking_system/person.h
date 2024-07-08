@@ -6,14 +6,14 @@
 namespace bank {
     class Person {
     private:
-        std::string firstName;
-        std::string middleName;
-        std::string lastName;
+        std::string m_firstName;
+        std::string m_middleName;
+        std::string m_lastName;
     public:
-        Person(std::string _firstName, std::string _middleName, std::string _lastName):
-            firstName(std::move(_firstName)), middleName(std::move(_middleName)),
-            lastName(std::move(_lastName)) {}
+        Person(std::string firstName, std::string middleName, std::string lastName):
+            m_firstName(std::move(firstName)), m_middleName(std::move(middleName)),
+            m_lastName(std::move(lastName)) {}
 
-        std::string getPersonDetails();
+        std::string getPersonDetails() const;
     };
 }

@@ -2,6 +2,6 @@
 
 namespace bank {
     std::string StandardAccount::getDetails() {
-        return person->getPersonDetails() + '\n' + funds->getDetails();
+        return m_person->getPersonDetails() + '\n' + m_funds->getDetails();
     }
 } // bank

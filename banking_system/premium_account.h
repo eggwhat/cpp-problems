@@ -11,8 +11,8 @@ namespace bank {
         enum class Benefits { FreeChecks, DedicatedCustomerService};
         std::set<Benefits> benefits;
     public:
-        explicit PremiumAccount(std::shared_ptr<Person> _person, std::unique_ptr<IFunds> _funds):
-            IAccount(std::move(_person), std::move(_funds)) {}
+        explicit PremiumAccount(std::shared_ptr<Person> person, std::unique_ptr<IFunds> funds):
+            IAccount(std::move(person), std::move(funds)) {}
 
         std::string getDetails() override;
     };

@@ -10,11 +10,11 @@
 namespace bank {
     class IAccount {
     protected:
-        std::shared_ptr<Person> person;
-        std::unique_ptr<IFunds> funds;
+        std::shared_ptr<Person> m_person;
+        std::unique_ptr<IFunds> m_funds;
     public:
-        explicit IAccount(std::shared_ptr<Person> _person, std::unique_ptr<IFunds> _funds):
-            person(std::move(_person)), funds(std::move(_funds)) {}
+        explicit IAccount(std::shared_ptr<Person> person, std::unique_ptr<IFunds> funds):
+            m_person(std::move(person)), m_funds(std::move(funds)) {}
         virtual ~IAccount() = default;
 
         virtual std::string getDetails() = 0;
