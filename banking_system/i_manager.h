@@ -9,12 +9,12 @@ namespace bank {
     class IManager {
     private:
     public:
-        virtual ~IManager() = 0;
+        virtual ~IManager() = default;
 
-        virtual std::string getAccountDetails() = 0;
+        virtual std::string getAccountDetails(std::unique_ptr<IAccount> account) = 0;
         virtual std::unique_ptr<IAccount> createAccount(std::string const& _firstName, std::string const& _middleName,
             std::string const& _lastName) = 0;
-        virtual void depositMoney() = 0;
-        virtual void withdrawMoney() = 0;
+        virtual void depositMoney(std::unique_ptr<IAccount> account) = 0;
+        virtual void withdrawMoney(std::unique_ptr<IAccount> account) = 0;
     };
 }

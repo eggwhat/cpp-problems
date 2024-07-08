@@ -7,20 +7,20 @@ namespace bank {
 
     std::unique_ptr<IAccount> StandardAccountManager::createAccount(std::string const& _firstName,
             std::string const& _middleName, std::string const& _lastName) {
-        auto person = std::make_unique<Person>(Person(_firstName, _middleName, _lastName));
-        std::shared_ptr<IFunds> funds = std::shared_ptr<FundsEUR>(new FundsEUR(23.0));
-        return std::make_unique<IAccount>(StandardAccount(person, funds));
+        auto person = std::make_shared<Person>(Person(_firstName, _middleName, _lastName));
+        std::unique_ptr<IFunds> funds = std::make_unique<FundsEUR>(0.0);
+        return std::make_unique<StandardAccount>(std::move(person), std::move(funds));
     }
 
-    void StandardAccountManager::depositMoney() {
-
-    }
-
-    void StandardAccountManager::withdrawMoney() {
+    void StandardAccountManager::depositMoney(std::unique_ptr<IAccount> account) {
 
     }
 
-    std::string StandardAccountManager::getAccountDetails() {
-        return "";
+    void StandardAccountManager::withdrawMoney(std::unique_ptr<IAccount>account) {
+
+    }
+
+    std::string StandardAccountManager::getAccountDetails(std::unique_ptr<IAccount> account) {
+        return account->getDetails();
     }
 } // bank

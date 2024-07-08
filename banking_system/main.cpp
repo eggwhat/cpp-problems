@@ -4,7 +4,8 @@
 
 int main() {
     auto manager = bank::StandardAccountManager();
-    manager.createAccount("keks","keks","keks");
+    auto account = manager.createAccount("keks","keks","keks");
+    std::cout << account->getDetails() << std::endl;
     while(1) {
 
     }
