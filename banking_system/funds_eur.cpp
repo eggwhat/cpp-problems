@@ -19,7 +19,9 @@ namespace bank {
     }
 
     std::string FundsEUR::getDetails() {
-        return "Funds: " + std::to_string(getAmountOfMoney()) + " Euro";
+        return "Funds: " + std::to_string(getAmountOfMoney()) + " Euro"
+            + "equals: " + std::to_string(convertToPLN()) + " in Polish Zloty" + '\n'
+            + "equals: " + std::to_string(convertToUSD()) + "in American Dollars" + '\n';
     }
 
 }
