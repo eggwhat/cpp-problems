@@ -4,6 +4,7 @@
 #include <iterator>
 #include <iostream>
 #include <stdexcept>
+#include <utility>
 
 #include "premium_account_manager.h"
 #include "standard_account_manager.h"
@@ -12,7 +13,7 @@
 namespace bank {
     Maintenance::Maintenance() {
         m_clients = std::vector<std::shared_ptr<Person>>();
-        m_accounts = std::vector<std::unique_ptr<IAccount>>();
+        m_accounts = std::vector<std::shared_ptr<IAccount>>();
     }
 
     void Maintenance::listClients() const {
@@ -27,18 +28,17 @@ namespace bank {
         }
     }
 
-    std::vector<std::unique_ptr<IAccount>> Maintenance::findClientAccounts(unsigned int const clientId) {
-        std::vector<std::unique_ptr<IAccount>> matches;
-        auto it = std::copy_if(std::begin(m_accounts), std::end(m_accounts),
-            std::back_inserter(matches), [&] (std::unique_ptr<IAccount> const& account)
-            { return clientId == account->getUserId();});
+    std::vector<std::shared_ptr<IAccount>> Maintenance::findClientAccounts(unsigned int const clientId) {
+        std::vector<std::shared_ptr<IAccount>> matches;
+        std::copy_if(std::begin(m_accounts), std::end(m_accounts), std::back_inserter(matches),
+            [&] (std::shared_ptr<IAccount> const& account){ return clientId == account->getUserId();});
         if(!matches.empty()) {
             return matches;
         }
         throw std::runtime_error("User not found!");
     }
 
-    std::unique_ptr<IManager> Maintenance::chooseAccount(std::unique_ptr<IAccount> const& account) {
+    std::unique_ptr<IManager> Maintenance::createAccountManager(std::shared_ptr<IAccount> const& account) {
         if (account->accountType == IAccount::AccountType::Standard) {
             return std::make_unique<StandardAccountManager>();
         }

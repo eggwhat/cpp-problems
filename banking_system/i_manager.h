@@ -7,7 +7,6 @@
 
 namespace bank {
     class IManager {
-    private:
     public:
         virtual ~IManager() = default;
 

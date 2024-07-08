@@ -14,7 +14,7 @@ namespace bank {
             m_person(std::move(person)), m_funds(std::move(funds)) {}
         virtual ~IAccount() = default;
 
-        enum class AccountType { Standard, Premium};
+        enum class AccountType { Standard, Premium };
         AccountType accountType;
 
         unsigned int getUserId() const { return m_person->id; }
