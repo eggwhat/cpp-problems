@@ -15,7 +15,7 @@ namespace bank {
         void depositMoney(double const money) { amountOfMoney += money; }
         void withdrawMoney(double const money) {
             if(0.0 > amountOfMoney - money) {
-                std::cout << "You don't have that much money!";
+                std::cout << "You don't have that much money!" << std::endl;
                 return;
             }
             amountOfMoney -= money;

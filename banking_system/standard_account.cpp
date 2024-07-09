@@ -9,7 +9,7 @@ namespace bank {
     }
 
     std::string StandardAccount::getDetails() {
-        return m_person->getPersonDetails() + '\n' + m_funds->getDetails();
+        return m_person->getPersonDetails() + '\n' + "Type: standard" + '\n' +  m_funds->getDetails();
     }
 
 } // bank

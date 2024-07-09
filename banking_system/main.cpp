@@ -60,7 +60,6 @@ void chooseClient(bank::Maintenance& maintenance, bank::StandardAccountManagerFa
             auto manager = isPremiumAccount == 0 ? premiumAccountManagerFactory.createManager()
                 : standardAccountManagerFactory.createManager();
             maintenance.addAccount(manager->createAccount(client));
-            break;
         }
         case 2: {
             std::cout << "Client accounts: " << std::endl;

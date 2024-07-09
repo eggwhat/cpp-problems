@@ -11,7 +11,7 @@ namespace bank {
     }
 
     std::string PremiumAccount::getDetails() {
-        return m_person->getPersonDetails() + '\n' + m_funds->getDetails() + "Benefits: " +
+        return m_person->getPersonDetails() + '\n' + "Type: premium" + '\n' + m_funds->getDetails() + "Benefits: " +
             std::to_string(benefits.size()) + '\n';
     }
 

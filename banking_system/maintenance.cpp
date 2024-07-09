@@ -24,7 +24,7 @@ namespace bank {
 
     void Maintenance::listClientAccount(std::vector<std::shared_ptr<IAccount>> const& accounts) {
         for(int i = 0; i < accounts.size(); ++i) {
-            std::cout << "Account nr " << i << ". " << accounts[i]->getDetails() << std::endl;
+            std::cout << "Account nr " << i << ". Client: " << accounts[i]->getDetails() << std::endl;
         }
     }
 
