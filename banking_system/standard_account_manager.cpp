@@ -14,7 +14,7 @@ namespace bank {
         account->depositMoney(money);
     }
 
-    void StandardAccountManager::withdrawMoney(std::unique_ptr<IAccount>account, double const money) {
+    void StandardAccountManager::withdrawMoney(std::unique_ptr<IAccount> account, double const money) {
         account->withdrawMoney(money);
     }
 
