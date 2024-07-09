@@ -6,8 +6,7 @@ namespace bank {
     class PremiumAccountManager: public IManager {
     public:
         std::string getAccountDetails(std::unique_ptr<IAccount> account) override;
-        std::unique_ptr<IAccount> createAccount(std::string const& firstName, std::string const& middleName,
-            std::string const& lastName) override;
+        std::unique_ptr<IAccount> createAccount(std::shared_ptr<Person> person) override;
         void depositMoney(std::unique_ptr<IAccount> account, double money) override;
         void withdrawMoney(std::unique_ptr<IAccount> account, double money) override;
     };

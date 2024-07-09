@@ -22,7 +22,7 @@ namespace bank {
         }
     }
 
-    void Maintenance::listClientAccount(std::vector<std::unique_ptr<IAccount>> const& accounts) {
+    void Maintenance::listClientAccount(std::vector<std::shared_ptr<IAccount>> const& accounts) {
         for(int i = 0; i < accounts.size(); ++i) {
             std::cout << i << ": " << accounts[i]->getDetails() << std::endl;
         }
@@ -38,8 +38,12 @@ namespace bank {
         throw std::runtime_error("User not found!");
     }
 
-    void Maintenance::createAccount(IManager& manager) {
-        manager.createAccount("", "","");
+    void Maintenance::addClient(std::shared_ptr<Person> client) {
+        m_clients.push_back(std::move(client));
+    }
+
+    void Maintenance::addAccount(std::shared_ptr<IAccount> account) {
+        m_accounts.push_back(std::move(account));
     }
 
     std::unique_ptr<IManager> Maintenance::createAccountManager(std::shared_ptr<IAccount> const& account) {

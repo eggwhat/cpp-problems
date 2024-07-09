@@ -15,9 +15,10 @@ namespace bank {
         Maintenance();
 
         void listClients() const;
-        static void listClientAccount(std::vector<std::unique_ptr<IAccount>> const& accounts) ;
+        static void listClientAccount(std::vector<std::shared_ptr<IAccount>> const& accounts) ;
         std::vector<std::shared_ptr<IAccount>> findClientAccounts(unsigned int clientId);
-        void createAccount(IManager& manager);
+        void addClient(std::shared_ptr<Person> client);
+        void addAccount(std::shared_ptr<IAccount> account);
         static std::unique_ptr<IManager> createAccountManager(std::shared_ptr<IAccount> const& account);
     };
 }
