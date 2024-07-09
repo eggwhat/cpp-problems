@@ -30,9 +30,14 @@ void chooseClient(bank::Maintenance& maintenance) {
     std::cout << "2) choose an account: " << std::endl;
     std::cin >> clientOption;
     switch (clientOption) {
-        case 1:
-            
+        case 1: {
+            auto client = maintenance.getClient(clientId);
+            int isPremiumAccount;
+            std::cout << "Premium account (yes=0):" << std::endl;
+            std::cin >> isPremiumAccount;
+            isPremiumAccount == 0 : ?
             break;
+        }
         case 2:
             std::cout << "Choose account: " << std::endl;
             unsigned int accountIndex;
@@ -52,6 +57,7 @@ int main() {
         std::cout << "Choose an option: " << std::endl;
         std::cout << "1) create new client profile: " << std::endl;
         std::cout << "2) list all clients: " << std::endl;
+        std::cout << "3) quit: " << std::endl;
         std::cin >> option;
 
         switch (option) {
@@ -61,6 +67,8 @@ int main() {
             case 2:
                 chooseClient(maintenance);
                 break;
+            case 3:
+                return 0;
             default:
                 std::cout << "Invalid option. Please try again." << std::endl;
         }

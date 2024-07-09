@@ -24,4 +24,9 @@ add_executable(banking_system main.cpp
         standard_account_manager.cpp
         standard_account_manager.h
         maintenance.cpp
-        maintenance.h)
+        maintenance.h
+        manager_factory.h
+        standard_account_manager_factory.cpp
+        standard_account_manager_factory.h
+        premium_account_manager_factory.cpp
+        premium_account_manager_factory.h)
