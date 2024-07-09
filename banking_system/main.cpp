@@ -25,10 +25,6 @@ void chooseClient(bank::Maintenance& maintenance, bank::StandardAccountManagerFa
     unsigned int clientId;
     std::cin >> clientId;
 
-    std::cout << "Client accounts: " << std::endl;
-    auto accounts = maintenance.findClientAccounts(clientId);
-    bank::Maintenance::listClientAccount(accounts);
-
     int clientOption;
     std::cout << "Choose an option: " << std::endl;
     std::cout << "1) create a new account: " << std::endl;
@@ -42,10 +38,13 @@ void chooseClient(bank::Maintenance& maintenance, bank::StandardAccountManagerFa
             std::cin >> isPremiumAccount;
             auto manager = isPremiumAccount == 0 ? premiumAccountManagerFactory.createManager()
                 : standardAccountManagerFactory.createManager();
-            manager->createAccount(client);
+            maintenance.addAccount(manager->createAccount(client));
             break;
         }
         case 2: {
+            std::cout << "Client accounts: " << std::endl;
+            auto accounts = maintenance.findClientAccounts(clientId);
+            bank::Maintenance::listClientAccount(accounts);
             std::cout << "Choose account: " << std::endl;
             unsigned int accountIndex;
             std::cin >> accountIndex;
@@ -69,7 +68,7 @@ int main() {
         std::cout << "Choose an option: " << std::endl;
         std::cout << "1) create new client profile: " << std::endl;
         std::cout << "2) list all clients: " << std::endl;
-        std::cout << "3) quit: " << std::endl;
+        std::cout << "3) quit " << std::endl;
         std::cin >> option;
 
         switch (option) {

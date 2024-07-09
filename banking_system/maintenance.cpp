@@ -18,7 +18,7 @@ namespace bank {
 
     void Maintenance::listClients() const {
         for(auto const& client: m_clients) {
-            std::cout << "Client ID: " << client->id << " " << client->getPersonDetails() << std::endl;
+            std::cout << "Client ID: " << client->id << ". Details: " << client->getPersonDetails() << std::endl;
         }
     }
 
@@ -32,10 +32,7 @@ namespace bank {
         std::vector<std::shared_ptr<IAccount>> matches;
         std::copy_if(std::begin(m_accounts), std::end(m_accounts), std::back_inserter(matches),
             [&] (std::shared_ptr<IAccount> const& account){ return clientId == account->getUserId();});
-        if(!matches.empty()) {
-            return matches;
-        }
-        throw std::runtime_error("User not found!");
+        return matches;
     }
 
     void Maintenance::addClient(std::shared_ptr<Person> client) {
