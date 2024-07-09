@@ -19,6 +19,7 @@ namespace bank {
         std::vector<std::shared_ptr<IAccount>> findClientAccounts(unsigned int clientId);
         void addClient(std::shared_ptr<Person> client);
         void addAccount(std::shared_ptr<IAccount> account);
+        std::shared_ptr<Person> getClient(unsigned int clientId) const;
         static std::unique_ptr<IManager> createAccountManager(std::shared_ptr<IAccount> const& account);
     };
 }

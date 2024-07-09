@@ -23,12 +23,25 @@ void chooseClient(bank::Maintenance& maintenance) {
     std::cin >> clientId;
     std::cout << "Client accounts: " << std::endl;
     auto accounts = maintenance.findClientAccounts(clientId);
-    int clientOption;
     bank::Maintenance::listClientAccount(accounts);
-    std::cout << "Choose account: " << std::endl;
-    unsigned int accountIndex;
-    std::cin >> accountIndex;
-    auto account = accounts[accountIndex];
+    int clientOption;
+    std::cout << "Choose an option: " << std::endl;
+    std::cout << "1) create a new account: " << std::endl;
+    std::cout << "2) choose an account: " << std::endl;
+    std::cin >> clientOption;
+    switch (clientOption) {
+        case 1:
+            
+            break;
+        case 2:
+            std::cout << "Choose account: " << std::endl;
+            unsigned int accountIndex;
+            std::cin >> accountIndex;
+            auto account = accounts[accountIndex];
+            break;
+        default:
+            break;
+    }
 }
 
 int main() {

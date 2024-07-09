@@ -46,6 +46,14 @@ namespace bank {
         m_accounts.push_back(std::move(account));
     }
 
+    std::shared_ptr<Person> Maintenance::getClient(unsigned int clientId) const {
+        auto const it =  std::find_if(m_clients.begin(), m_clients.end(),
+            [=](std::shared_ptr<Person> const& client){ return clientId == client->id;});
+        if(it != std::end(m_clients))
+            return *it;
+        return nullptr;
+    }
+
     std::unique_ptr<IManager> Maintenance::createAccountManager(std::shared_ptr<IAccount> const& account) {
         if (account->accountType == IAccount::AccountType::Standard) {
             return std::make_unique<StandardAccountManager>();
