@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <memory>
+#include <utility>
 
 #include "maintenance.h"
 #include "premium_account_manager.h"
@@ -17,6 +19,25 @@ void createNewClientProfile(bank::Maintenance& maintenance) {
     std::cin >> lastName;
     maintenance.addClient(std::make_shared<bank::Person>(firstName, middleName, lastName));
 }
+
+void depositMoney(std::unique_ptr<bank::IManager> const& accountManager, std::shared_ptr<bank::IAccount> const& account) {
+    std::cout << accountManager->getAccountDetails(account);
+    std::cout << "Provide amount of money to deposit" << std::endl;
+    double moneyToDeposit;
+    std::cin >> moneyToDeposit;
+    accountManager->depositMoney(account, moneyToDeposit);
+    std::cout << accountManager->getAccountDetails(account);
+}
+
+void withdrawMoney(std::unique_ptr<bank::IManager> const& accountManager, std::shared_ptr<bank::IAccount> const& account) {
+    std::cout << accountManager->getAccountDetails(account);
+    std::cout << "Provide amount of money to withdraw" << std::endl;
+    double moneyToWithdraw;
+    std::cin >> moneyToWithdraw;
+    accountManager->withdrawMoney(account, moneyToWithdraw);
+    std::cout << accountManager->getAccountDetails(account);
+}
+
 
 void chooseClient(bank::Maintenance& maintenance, bank::StandardAccountManagerFactory& standardAccountManagerFactory,
         bank::PremiumAccountManagerFactory& premiumAccountManagerFactory) {
@@ -48,9 +69,28 @@ void chooseClient(bank::Maintenance& maintenance, bank::StandardAccountManagerFa
             std::cout << "Choose account: " << std::endl;
             unsigned int accountIndex;
             std::cin >> accountIndex;
+            int accountOption;
             auto account = accounts[accountIndex];
             auto manager = bank::Maintenance::createAccountManager(account);
-            std::cout << manager->getAccountDetails(account) << std::endl;
+            std::cout << "Choose an option: " << std::endl;
+            std::cout << "1) show account details: " << std::endl;
+            std::cout << "2) deposit money: " << std::endl;
+            std::cout << "3) withdraw money: " << std::endl;
+            std::cin >> accountOption;
+            switch (accountOption) {
+                case 1:
+                    std::cout << manager->getAccountDetails(account) << std::endl;
+                    break;
+                case 2:
+                    depositMoney(manager, account);
+                    break;
+                case 3:
+                    withdrawMoney(manager, account);
+                    break;
+                default:
+                    std::cout << "Invalid option. Please try again." << std::endl;
+                    break;
+            }
             break;
         }
         default:
@@ -59,11 +99,10 @@ void chooseClient(bank::Maintenance& maintenance, bank::StandardAccountManagerFa
 }
 
 int main() {
-    int option;
-
     auto maintenance = bank::Maintenance();
     auto standardAccountManagerFactory = bank::StandardAccountManagerFactory();
     auto premiumAccountManagerFactory = bank::PremiumAccountManagerFactory();
+    int option;
     while(1) {
         std::cout << "Choose an option: " << std::endl;
         std::cout << "1) create new client profile: " << std::endl;

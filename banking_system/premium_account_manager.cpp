@@ -9,11 +9,11 @@ namespace bank {
         return std::make_unique<PremiumAccount>(std::move(person), std::move(funds));
     }
 
-    void PremiumAccountManager::depositMoney(std::unique_ptr<IAccount> account, double const money) {
+    void PremiumAccountManager::depositMoney(std::shared_ptr<IAccount> account, double const money) {
         account->depositMoney(money);
     }
 
-    void PremiumAccountManager::withdrawMoney(std::unique_ptr<IAccount> account, double const money) {
+    void PremiumAccountManager::withdrawMoney(std::shared_ptr<IAccount> account, double const money) {
         account->withdrawMoney(money);
     }
 
