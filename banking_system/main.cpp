@@ -9,7 +9,7 @@ int main() {
     auto standardAccountManagerFactory = bank::StandardAccountManagerFactory();
     auto premiumAccountManagerFactory = bank::PremiumAccountManagerFactory();
     int option;
-    while(1) {
+    while(true) {
         std::cout << "Choose an option: " << std::endl;
         std::cout << "1) create new client profile: " << std::endl;
         std::cout << "2) list all clients: " << std::endl;
