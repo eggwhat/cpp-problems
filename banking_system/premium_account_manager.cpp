@@ -4,8 +4,7 @@
 #include "premium_account.h"
 
 namespace bank {
-    std::unique_ptr<IAccount> PremiumAccountManager::createAccount(std::shared_ptr<Person> person) {
-        std::unique_ptr<IFunds> funds = std::make_unique<FundsEUR>(0.0);
+    std::unique_ptr<IAccount> PremiumAccountManager::createAccount(std::shared_ptr<Person> person, std::unique_ptr<IFunds> funds) {
         return std::make_unique<PremiumAccount>(std::move(person), std::move(funds));
     }
 

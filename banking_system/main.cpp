@@ -3,6 +3,9 @@
 #include <memory>
 #include <utility>
 
+#include "funds_eur.h"
+#include "funds_pln.h"
+#include "funds_usd.h"
 #include "maintenance.h"
 #include "premium_account_manager.h"
 #include "premium_account_manager_factory.h"
@@ -38,7 +41,6 @@ void withdrawMoney(std::unique_ptr<bank::IManager> const& accountManager, std::s
     std::cout << accountManager->getAccountDetails(account);
 }
 
-
 void chooseClient(bank::Maintenance& maintenance, bank::StandardAccountManagerFactory& standardAccountManagerFactory,
         bank::PremiumAccountManagerFactory& premiumAccountManagerFactory) {
     std::cout << "Choose a client:" << std::endl;
@@ -57,9 +59,36 @@ void chooseClient(bank::Maintenance& maintenance, bank::StandardAccountManagerFa
             int isPremiumAccount;
             std::cout << "Premium account (yes=0):" << std::endl;
             std::cin >> isPremiumAccount;
-            auto manager = isPremiumAccount == 0 ? premiumAccountManagerFactory.createManager()
-                : standardAccountManagerFactory.createManager();
-            maintenance.addAccount(manager->createAccount(client));
+            std::unique_ptr<bank::IFunds> funds;
+            std::unique_ptr<bank::IManager> manager;
+            if(isPremiumAccount == 0) {
+                manager = premiumAccountManagerFactory.createManager();
+                int fundsOption;
+                std::cout << "Choose a currency: " << std::endl;
+                std::cout << "1) Euro: " << std::endl;
+                std::cout << "2) Polish Zloty: " << std::endl;
+                std::cout << "2) American Dollars: " << std::endl;
+                std::cin >> fundsOption;
+                switch (fundsOption) {
+                    case 1:
+                        funds = std::make_unique<bank::FundsEUR>(0.0);
+                        break;
+                    case 2:
+                        funds = std::make_unique<bank::FundsPLN>(0.0);
+                        break;
+                    case 3:
+                        funds = std::make_unique<bank::FundsUSD>(0.0);
+                        break;
+                    default:
+                        std::cout << "Invalid option. Please try again." << std::endl;
+                        break;
+                }
+            }
+            else {
+                manager = standardAccountManagerFactory.createManager();
+                funds = std::make_unique<bank::FundsEUR>(0.0);
+            }
+            maintenance.addAccount(manager->createAccount(client, std::move(funds)));
         }
         case 2: {
             std::cout << "Client accounts: " << std::endl;

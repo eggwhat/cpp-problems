@@ -5,8 +5,7 @@
 
 namespace bank {
 
-    std::unique_ptr<IAccount> StandardAccountManager::createAccount(std::shared_ptr<Person> person) {
-        std::unique_ptr<IFunds> funds = std::make_unique<FundsEUR>(0.0);
+    std::unique_ptr<IAccount> StandardAccountManager::createAccount(std::shared_ptr<Person> person, std::unique_ptr<IFunds> funds) {
         return std::make_unique<StandardAccount>(std::move(person), std::move(funds));
     }
 
