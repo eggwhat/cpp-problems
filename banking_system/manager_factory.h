@@ -9,6 +9,6 @@ namespace bank {
     public:
         virtual ~ManagerFactory() = default;
 
-        virtual std::unique_ptr<IManager> createManager();
+        virtual std::unique_ptr<IManager> createManager() = 0;
     };
 }

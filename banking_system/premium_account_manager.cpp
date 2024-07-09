@@ -17,7 +17,7 @@ namespace bank {
         account->withdrawMoney(money);
     }
 
-    std::string PremiumAccountManager::getAccountDetails(std::unique_ptr<IAccount> account) {
+    std::string PremiumAccountManager::getAccountDetails(std::shared_ptr<IAccount> account) {
         return account->getDetails();
     }
 } // bank

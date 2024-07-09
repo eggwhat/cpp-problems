@@ -6,5 +6,4 @@ namespace bank {
     std::unique_ptr<IManager> StandardAccountManagerFactory::createManager() {
         return std::make_unique<StandardAccountManager>();
     }
-
 } // bank
