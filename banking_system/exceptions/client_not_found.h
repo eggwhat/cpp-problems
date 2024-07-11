@@ -6,6 +6,6 @@ namespace exceptions {
     class ClientNotFound: public std::exception {
     public:
         explicit ClientNotFound() = default;
-        char const* what() const noexcept override { return "You don't have that much money!"; }
+        char const* what() const noexcept override { return "Client with given ID does not exist."; }
     };
 }

@@ -9,6 +9,8 @@
 #include "account.h"
 #include "premium_account_manager.h"
 #include "standard_account_manager.h"
+#include "exceptions/client_not_found.h"
+#include "exceptions/no_accounts_found_for_given_client_id.h"
 
 
 namespace bank {
@@ -37,6 +39,8 @@ namespace bank {
             it != m_accounts.end(); it = std::find_if(++it, m_accounts.end(), isClientAccount)) {
             matches.push_back(it);
         }
+        if (matches.empty())
+            throw exceptions::NoAccountFoundForGivenClientId();
         return matches;
     }
 
@@ -52,8 +56,9 @@ namespace bank {
         auto const it =  std::find_if(m_clients.begin(), m_clients.end(),
             [=](std::shared_ptr<Person> const& client){ return clientId == client->id;});
         if(it != std::end(m_clients))
-            return *it;
-        return nullptr;
+            throw exceptions::ClientNotFound();
+
+        return *it;
     }
 
     std::unique_ptr<IManager> Maintenance::createAccountManager(std::unique_ptr<IAccount> const& account) {
