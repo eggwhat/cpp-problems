@@ -22,7 +22,7 @@ namespace bank {
         }
     }
 
-    void Maintenance::listClientAccount(std::vector<std::shared_ptr<IAccount>> const& accounts) {
+    void Maintenance::listClientAccounts(std::vector<std::shared_ptr<IAccount>> const& accounts) {
         for(int i = 0; i < accounts.size(); ++i) {
             std::cout << "Account nr " << i << ". Client: " << accounts[i]->getDetails() << std::endl;
         }
@@ -55,8 +55,6 @@ namespace bank {
         if (account->accountType == IAccount::AccountType::Standard) {
             return std::make_unique<StandardAccountManager>();
         }
-        else {
-            return std::make_unique<PremiumAccountManager>();
-        }
+        return std::make_unique<PremiumAccountManager>();
     }
 } // bank

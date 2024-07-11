@@ -91,14 +91,14 @@ namespace bank_cli {
             }
             case 2: {
                 std::cout << "Client accounts: " << std::endl;
-                auto accounts = maintenance.findClientAccounts(clientId);
-                bank::Maintenance::listClientAccount(accounts);
+                auto const accounts = maintenance.findClientAccounts(clientId);
+                bank::Maintenance::listClientAccounts(accounts);
                 std::cout << "Choose account: " << std::endl;
                 unsigned int accountIndex;
                 std::cin >> accountIndex;
                 int accountOption;
-                auto account = accounts[accountIndex];
-                auto manager = bank::Maintenance::createAccountManager(account);
+                auto const& account = accounts[accountIndex];
+                auto const manager = bank::Maintenance::createAccountManager(account);
                 std::cout << "Choose an option: " << std::endl;
                 std::cout << "1) show account details: " << std::endl;
                 std::cout << "2) deposit money: " << std::endl;
