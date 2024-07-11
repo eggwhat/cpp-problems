@@ -31,7 +31,7 @@ namespace bank {
     std::vector<std::shared_ptr<IAccount>> Maintenance::findClientAccounts(unsigned int const clientId) {
         std::vector<std::shared_ptr<IAccount>> matches;
         std::copy_if(std::begin(m_accounts), std::end(m_accounts), std::back_inserter(matches),
-            [&] (std::shared_ptr<IAccount> const& account){ return clientId == account->getUserId();});
+            [&clientId] (std::shared_ptr<IAccount> const& account){ return clientId == account->getUserId();});
         return matches;
     }
 
