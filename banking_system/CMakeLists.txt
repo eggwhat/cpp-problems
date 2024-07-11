@@ -33,4 +33,5 @@ add_executable(banking_system main.cpp
         command_line_interface.cpp
         command_line_interface.h
         funds.h
-        account.h)
+        account.h
+        funds.cpp)
