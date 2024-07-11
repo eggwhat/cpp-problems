@@ -4,7 +4,6 @@
 
 namespace bank {
     class FundsEUR: public Funds {
-
     public:
         explicit FundsEUR(double const amountOfMoney): Funds(amountOfMoney) {}
 
@@ -15,6 +14,5 @@ namespace bank {
         double convertToUSD() override;
         double convertToEUR() override;
         std::string getDetails() override;
-
     };
 }

@@ -4,7 +4,6 @@
 
 namespace bank {
     class FundsPLN: public Funds {
-
     public:
         explicit FundsPLN(double const amountOfMoney): Funds(amountOfMoney) {}
 

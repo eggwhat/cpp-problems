@@ -9,9 +9,6 @@
 namespace bank {
 
     class PremiumAccount: public Account {
-    private:
-        enum class Benefits { FreeChecks, DedicatedCustomerService};
-        std::set<Benefits> benefits;
     public:
         explicit PremiumAccount(std::shared_ptr<Person> person, std::unique_ptr<IFunds> funds);
 
@@ -20,6 +17,9 @@ namespace bank {
         void withdrawMoney(double money) const override;
         bool isPremium() const override;
         std::string getDetails() override;
+    private:
+        enum class Benefits { FreeChecks, DedicatedCustomerService};
+        std::set<Benefits> benefits;
     };
 
 } // bank
