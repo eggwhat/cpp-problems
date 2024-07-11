@@ -1,30 +1,18 @@
 #pragma once
 
 #include <string>
-#include <memory>
-#include <utility>
 
-#include "person.h"
 #include "i_funds.h"
 
 namespace bank {
     class IAccount {
     public:
-        explicit IAccount(std::shared_ptr<Person> person, std::unique_ptr<IFunds> funds):
-            m_person(std::move(person)), m_funds(std::move(funds)) {}
         virtual ~IAccount() = default;
 
-        enum class AccountType { Standard, Premium };
-        AccountType accountType;
-
-        unsigned int getUserId() const { return m_person->id; }
-        void depositMoney(double const money) const { m_funds->depositMoney(money); }
-        void withdrawMoney(double const money) const { m_funds->withdrawMoney(money); }
-
+        virtual unsigned int getUserId() const = 0;
+        virtual void depositMoney(double money) const = 0;
+        virtual void withdrawMoney(double money) const = 0;
+        virtual bool isPremium() const = 0;
         virtual std::string getDetails() = 0;
-    protected:
-        std::shared_ptr<Person> m_person;
-        std::unique_ptr<IFunds> m_funds;
     };
-
 }

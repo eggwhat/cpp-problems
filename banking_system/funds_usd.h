@@ -1,7 +1,6 @@
 #pragma once
 
 #include "funds.h"
-#include "i_funds.h"
 
 namespace bank {
     class FundsUSD: public Funds {

@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <utility>
 
+#include "account.h"
 #include "premium_account_manager.h"
 #include "standard_account_manager.h"
 
@@ -56,9 +57,9 @@ namespace bank {
     }
 
     std::unique_ptr<IManager> Maintenance::createAccountManager(std::unique_ptr<IAccount> const& account) {
-        if (account->accountType == IAccount::AccountType::Standard) {
-            return std::make_unique<StandardAccountManager>();
+        if (account->isPremium()) {
+            return std::make_unique<PremiumAccountManager>();
         }
-        return std::make_unique<PremiumAccountManager>();
+        return std::make_unique<StandardAccountManager>();
     }
 } // bank

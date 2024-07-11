@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "i_account.h"
+#include "person.h"
 
 namespace bank {
     class IManager {
@@ -14,6 +15,5 @@ namespace bank {
         virtual std::unique_ptr<IAccount> createAccount(std::shared_ptr<Person> person, std::unique_ptr<IFunds> funds) = 0;
         virtual void depositMoney(std::unique_ptr<IAccount> const& account, double money) = 0;
         virtual void withdrawMoney(std::unique_ptr<IAccount> const& account, double money) = 0;
-
     };
 }

@@ -8,9 +8,9 @@ namespace bank {
     public:
         virtual ~IFunds() = default;
 
-        virtual double getAmountOfMoney() const;
-        virtual void depositMoney(double money);
-        virtual void withdrawMoney(double money);
+        virtual double getAmountOfMoney() const = 0;
+        virtual void depositMoney(double money) = 0;
+        virtual void withdrawMoney(double money) = 0;
         virtual double convertToPLN() = 0;
         virtual double convertToUSD() = 0;
         virtual double convertToEUR() = 0;
