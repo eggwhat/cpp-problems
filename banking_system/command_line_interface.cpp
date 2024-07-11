@@ -46,6 +46,7 @@ namespace bank_cli {
         maintenance.listClients();
         unsigned int clientId;
         std::cin >> clientId;
+        auto const client = maintenance.getClient(clientId);
 
         int clientOption;
         std::cout << "Choose an option: " << std::endl;
@@ -54,7 +55,6 @@ namespace bank_cli {
         std::cin >> clientOption;
         switch (clientOption) {
             case 1: {
-                auto client = maintenance.getClient(clientId);
                 int isPremiumAccount;
                 std::cout << "Premium account (yes=0):" << std::endl;
                 std::cin >> isPremiumAccount;
@@ -66,7 +66,7 @@ namespace bank_cli {
                     std::cout << "Choose a currency: " << std::endl;
                     std::cout << "1) Euro: " << std::endl;
                     std::cout << "2) Polish Zloty: " << std::endl;
-                    std::cout << "2) American Dollars: " << std::endl;
+                    std::cout << "3) American Dollars: " << std::endl;
                     std::cin >> fundsOption;
                     switch (fundsOption) {
                         case 1:

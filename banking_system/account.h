@@ -11,6 +11,11 @@ namespace bank {
 
         enum class AccountType { Standard, Premium };
         AccountType accountType;
+
+        unsigned int getUserId() const final;
+        void depositMoney(double money) const final;
+        void withdrawMoney(double money) const final;
+        bool isPremium() const final;
     protected:
         std::shared_ptr<Person> m_person;
         std::unique_ptr<IFunds> m_funds;
