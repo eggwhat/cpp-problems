@@ -10,24 +10,29 @@ int main() {
     auto premiumAccountManagerFactory = bank::PremiumAccountManagerFactory();
     int option;
     while(true) {
-        std::cout << "Choose an option: " << std::endl;
-        std::cout << "1) create new client profile: " << std::endl;
-        std::cout << "2) list all clients: " << std::endl;
-        std::cout << "3) quit " << std::endl;
-        std::cin >> option;
+        try {
+            std::cout << "Choose an option: " << std::endl;
+            std::cout << "1) create new client profile: " << std::endl;
+            std::cout << "2) list all clients: " << std::endl;
+            std::cout << "3) quit " << std::endl;
+            std::cin >> option;
 
-        switch (option) {
-            case 1:
-                bank_cli::CommandLineInterface::createNewClientProfile(maintenance);
+            switch (option) {
+                case 1:
+                    bank_cli::CommandLineInterface::createNewClientProfile(maintenance);
                 break;
-            case 2:
-                bank_cli::CommandLineInterface::chooseClient(maintenance, standardAccountManagerFactory,
-                    premiumAccountManagerFactory);
+                case 2:
+                    bank_cli::CommandLineInterface::chooseClient(maintenance, standardAccountManagerFactory,
+                        premiumAccountManagerFactory);
                 break;
-            case 3:
-                return 0;
-            default:
-                std::cout << "Invalid option. Please try again." << std::endl;
+                case 3:
+                    return 0;
+                default:
+                    std::cout << "Invalid option. Please try again." << std::endl;
+            }
+        }
+        catch (std::exception& exception) {
+            std::cerr << "Caught exception: " << exception.what() << std::endl;
         }
     }
 }

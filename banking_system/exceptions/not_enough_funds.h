@@ -3,9 +3,9 @@
 #include <exception>
 
 namespace exceptions {
-    class NoAccountFoundForGivenClientId: public std::exception {
+    class NotEnoughFunds: public std::exception {
     public:
-        explicit NoAccountFoundForGivenClientId() = default;
+        explicit NotEnoughFunds() = default;
         char const* what() const noexcept override { return "You don't have that much money."; }
     };
 }

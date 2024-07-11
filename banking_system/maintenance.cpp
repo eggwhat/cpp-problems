@@ -11,6 +11,7 @@
 #include "standard_account_manager.h"
 #include "exceptions/client_not_found.h"
 #include "exceptions/no_accounts_found_for_given_client_id.h"
+#include "exceptions/no_clients_present.h"
 
 
 namespace bank {
@@ -20,6 +21,9 @@ namespace bank {
     }
 
     void Maintenance::listClients() const {
+        if (m_clients.empty())
+            throw exceptions::NoClientsPresent();
+
         for(auto const& client: m_clients) {
             std::cout << "Client ID: " << client->id << ". Details: " << client->getPersonDetails() << std::endl;
         }
@@ -55,7 +59,7 @@ namespace bank {
     std::shared_ptr<Person> Maintenance::getClient(unsigned int clientId) const {
         auto const it =  std::find_if(m_clients.begin(), m_clients.end(),
             [=](std::shared_ptr<Person> const& client){ return clientId == client->id;});
-        if(it != std::end(m_clients))
+        if(it == std::end(m_clients))
             throw exceptions::ClientNotFound();
 
         return *it;

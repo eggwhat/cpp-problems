@@ -14,7 +14,7 @@ namespace bank {
 
     void Funds::withdrawMoney(double const money) {
         if(0.0 > m_amountOfMoney - money) {
-            throw exceptions::NoAccountFoundForGivenClientId();
+            throw exceptions::NotEnoughFunds();
         }
         m_amountOfMoney -= money;
     }
