@@ -2,6 +2,22 @@
 
 namespace bank {
 
+    double FundsUSD::getAmountOfMoney() const {
+        return m_amountOfMoney;
+    }
+
+    void FundsUSD::depositMoney(double const money) {
+        m_amountOfMoney += money;
+    }
+
+    void FundsUSD::withdrawMoney(double const money) {
+        if(0.0 > m_amountOfMoney - money) {
+            std::cout << "You don't have that much money!" << std::endl;
+            return;
+        }
+        m_amountOfMoney -= money;
+    }
+
     double FundsUSD::convertToPLN() {
         // http request to get current exchange rate
         double constexpr plnToEurRate = 3.95;

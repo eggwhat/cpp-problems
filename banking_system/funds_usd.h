@@ -1,13 +1,17 @@
 #pragma once
 
+#include "funds.h"
 #include "i_funds.h"
 
 namespace bank {
-    class FundsUSD: public IFunds {
+    class FundsUSD: public Funds {
 
     public:
-        explicit FundsUSD(double const _amountOfMoney): IFunds(_amountOfMoney) {}
+        explicit FundsUSD(double const amountOfMoney): Funds(amountOfMoney) {}
 
+        double getAmountOfMoney() const override;
+        void depositMoney(double money) override;
+        void withdrawMoney(double money) override;
         double convertToPLN() override;
         double convertToUSD() override;
         double convertToEUR() override;

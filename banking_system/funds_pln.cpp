@@ -2,6 +2,22 @@
 
 namespace bank {
 
+    double FundsPLN::getAmountOfMoney() const {
+        return m_amountOfMoney;
+    }
+
+    void FundsPLN::depositMoney(double const money) {
+        m_amountOfMoney += money;
+    }
+
+    void FundsPLN::withdrawMoney(double const money) {
+        if(0.0 > m_amountOfMoney - money) {
+            std::cout << "You don't have that much money!" << std::endl;
+            return;
+        }
+        m_amountOfMoney -= money;
+    }
+
     double FundsPLN::convertToPLN() {
         return getAmountOfMoney();
     }

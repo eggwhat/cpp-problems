@@ -31,4 +31,5 @@ add_executable(banking_system main.cpp
         premium_account_manager_factory.cpp
         premium_account_manager_factory.h
         command_line_interface.cpp
-        command_line_interface.h)
+        command_line_interface.h
+        funds.h)
