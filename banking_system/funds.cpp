@@ -1,5 +1,7 @@
 #include "funds.h"
 
+#include <iostream>
+
 namespace bank {
 
     double Funds::getAmountOfMoney() const {
