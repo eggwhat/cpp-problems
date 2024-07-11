@@ -22,7 +22,7 @@ namespace bank_cli {
         maintenance.addClient(std::make_shared<bank::Person>(firstName, middleName, lastName));
     }
 
-    void CommandLineInterface::depositMoney(std::unique_ptr<bank::IManager> const& accountManager, std::shared_ptr<bank::IAccount> const& account) {
+    void CommandLineInterface::depositMoney(std::unique_ptr<bank::IManager> const& accountManager, std::unique_ptr<bank::IAccount> const& account) {
         std::cout << accountManager->getAccountDetails(account);
         std::cout << "Provide amount of money to deposit" << std::endl;
         double moneyToDeposit;
@@ -31,7 +31,7 @@ namespace bank_cli {
         std::cout << accountManager->getAccountDetails(account);
     }
 
-    void CommandLineInterface::withdrawMoney(std::unique_ptr<bank::IManager> const& accountManager, std::shared_ptr<bank::IAccount> const& account) {
+    void CommandLineInterface::withdrawMoney(std::unique_ptr<bank::IManager> const& accountManager, std::unique_ptr<bank::IAccount> const& account) {
         std::cout << accountManager->getAccountDetails(account);
         std::cout << "Provide amount of money to withdraw" << std::endl;
         double moneyToWithdraw;
@@ -97,7 +97,7 @@ namespace bank_cli {
                 unsigned int accountIndex;
                 std::cin >> accountIndex;
                 int accountOption;
-                auto const& account = accounts[accountIndex];
+                auto const& account = *accounts[accountIndex];
                 auto const manager = bank::Maintenance::createAccountManager(account);
                 std::cout << "Choose an option: " << std::endl;
                 std::cout << "1) show account details: " << std::endl;

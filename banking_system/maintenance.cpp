@@ -13,7 +13,7 @@
 namespace bank {
     Maintenance::Maintenance() {
         m_clients = std::vector<std::shared_ptr<Person>>();
-        m_accounts = std::vector<std::shared_ptr<IAccount>>();
+        m_accounts = std::vector<std::unique_ptr<IAccount>>();
     }
 
     void Maintenance::listClients() const {
@@ -22,16 +22,20 @@ namespace bank {
         }
     }
 
-    void Maintenance::listClientAccounts(std::vector<std::shared_ptr<IAccount>> const& accounts) {
+    void Maintenance::listClientAccounts(std::vector<std::vector<std::unique_ptr<IAccount>>::iterator> const& accounts) {
         for(int i = 0; i < accounts.size(); ++i) {
-            std::cout << "Account nr " << i << ". Client: " << accounts[i]->getDetails() << std::endl;
+            std::cout << "Account nr " << i << ". Client: " << (*accounts[i])->getDetails() << std::endl;
         }
     }
 
-    std::vector<std::shared_ptr<IAccount>> Maintenance::findClientAccounts(unsigned int const clientId) {
-        std::vector<std::shared_ptr<IAccount>> matches;
-        std::copy_if(std::begin(m_accounts), std::end(m_accounts), std::back_inserter(matches),
-            [&clientId] (std::shared_ptr<IAccount> const& account){ return clientId == account->getUserId();});
+    std::vector<std::vector<std::unique_ptr<IAccount>>::iterator> Maintenance::findClientAccounts(unsigned int const clientId) {
+        auto isClientAccount = [&clientId] (std::unique_ptr<IAccount> const& account)
+            { return clientId == account->getUserId();};
+        std::vector<std::vector<std::unique_ptr<IAccount>>::iterator> matches;
+        for ( auto it = std::find_if(m_accounts.begin(), m_accounts.end(), isClientAccount);
+            it != m_accounts.end(); it = std::find_if(++it, m_accounts.end(), isClientAccount)) {
+            matches.push_back(it);
+        }
         return matches;
     }
 
@@ -39,7 +43,7 @@ namespace bank {
         m_clients.push_back(std::move(client));
     }
 
-    void Maintenance::addAccount(std::shared_ptr<IAccount> account) {
+    void Maintenance::addAccount(std::unique_ptr<IAccount> account) {
         m_accounts.push_back(std::move(account));
     }
 
@@ -51,7 +55,7 @@ namespace bank {
         return nullptr;
     }
 
-    std::unique_ptr<IManager> Maintenance::createAccountManager(std::shared_ptr<IAccount> const& account) {
+    std::unique_ptr<IManager> Maintenance::createAccountManager(std::unique_ptr<IAccount> const& account) {
         if (account->accountType == IAccount::AccountType::Standard) {
             return std::make_unique<StandardAccountManager>();
         }

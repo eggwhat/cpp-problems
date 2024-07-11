@@ -12,13 +12,13 @@ namespace bank_cli {
         static void createNewClientProfile(bank::Maintenance& maintenance);
 
         static void depositMoney(std::unique_ptr<bank::IManager> const &accountManager,
-                          std::shared_ptr<bank::IAccount> const &account);
+                          std::unique_ptr<bank::IAccount> const& account);
 
         static void withdrawMoney(std::unique_ptr<bank::IManager> const &accountManager,
-                           std::shared_ptr<bank::IAccount> const &account);
+                           std::unique_ptr<bank::IAccount> const& account);
 
-        static void chooseClient(bank::Maintenance &maintenance,
-                          bank::StandardAccountManagerFactory &standardAccountManagerFactory,
-                          bank::PremiumAccountManagerFactory &premiumAccountManagerFactory);
+        static void chooseClient(bank::Maintenance& maintenance,
+                          bank::StandardAccountManagerFactory& standardAccountManagerFactory,
+                          bank::PremiumAccountManagerFactory& premiumAccountManagerFactory);
     };
 }
