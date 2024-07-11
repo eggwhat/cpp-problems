@@ -1,6 +1,6 @@
 #include "funds.h"
 
-#include <iostream>
+#include "exceptions/not_enough_funds.h"
 
 namespace bank {
 
@@ -14,8 +14,7 @@ namespace bank {
 
     void Funds::withdrawMoney(double const money) {
         if(0.0 > m_amountOfMoney - money) {
-            std::cout << "You don't have that much money!" << std::endl;
-            return;
+            throw exceptions::NotEnoughFunds();
         }
         m_amountOfMoney -= money;
     }

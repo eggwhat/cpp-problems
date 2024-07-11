@@ -35,4 +35,6 @@ add_executable(banking_system main.cpp
         funds.h
         funds.cpp
         account.h
-        account.cpp)
+        account.cpp
+        exceptions/not_enough_funds.h
+        exceptions/client_not_found.h)
