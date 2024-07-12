@@ -15,10 +15,8 @@
 
 
 namespace bank {
-    Maintenance::Maintenance() {
-        m_clients = std::vector<std::shared_ptr<Person>>();
-        m_accounts = std::vector<std::unique_ptr<IAccount>>();
-    }
+    Maintenance::Maintenance() : m_clients(std::vector<std::shared_ptr<Person>>()),
+        m_accounts(std::vector<std::unique_ptr<IAccount>>()) {}
 
     void Maintenance::listClients() const {
         if (m_clients.empty()) {
