@@ -42,4 +42,5 @@ add_executable(banking_system main.cpp
         exceptions/no_clients_present.h
         exceptions/invalid_person_data_entry.h
         exceptions/exception.h
+        exceptions/invalid_money_value.h
 )

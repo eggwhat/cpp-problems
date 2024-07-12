@@ -10,6 +10,7 @@
 #include "funds_usd.h"
 #include "maintenance.h"
 #include "exceptions/exception.h"
+#include "exceptions/invalid_money_value.h"
 
 namespace bank_cli {
     void CommandLineInterface::init() {
@@ -34,7 +35,7 @@ namespace bank_cli {
                 }
             }
             catch (exceptions::Exception& exception) {
-                std::cerr << exception.what() << std::endl;
+                std::cerr << exception.what() << std::endl << std::flush;
             }
         }
     }
@@ -53,8 +54,7 @@ namespace bank_cli {
     void CommandLineInterface::depositMoney(std::unique_ptr<bank::IManager> const& accountManager, std::unique_ptr<bank::IAccount> const& account) {
         std::cout << accountManager->getAccountDetails(account);
         std::cout << "Provide amount of money to deposit" << std::endl;
-        double moneyToDeposit;
-        std::cin >> moneyToDeposit;
+        double moneyToDeposit = provideAmountOfMoney();
         accountManager->depositMoney(account, moneyToDeposit);
         std::cout << accountManager->getAccountDetails(account);
     }
@@ -62,8 +62,7 @@ namespace bank_cli {
     void CommandLineInterface::withdrawMoney(std::unique_ptr<bank::IManager> const& accountManager, std::unique_ptr<bank::IAccount> const& account) {
         std::cout << accountManager->getAccountDetails(account);
         std::cout << "Provide amount of money to withdraw" << std::endl;
-        double moneyToWithdraw;
-        std::cin >> moneyToWithdraw;
+        double moneyToWithdraw = provideAmountOfMoney();
         accountManager->withdrawMoney(account, moneyToWithdraw);
         std::cout << accountManager->getAccountDetails(account);
     }
@@ -152,7 +151,7 @@ namespace bank_cli {
         int option;
         while (true) {
             std::cin >> option;
-            if (!std::cin.fail() && option >= 1 || option <= numberOfOptions)
+            if (!std::cin.fail() && option >= 1 && option <= numberOfOptions)
                 break;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -160,4 +159,13 @@ namespace bank_cli {
         }
         return option;
     }
+
+    double CommandLineInterface::provideAmountOfMoney() {
+        double money;
+        std::cin >> money;
+        if(std::cin.fail())
+            throw exceptions::InvalidMoneyValue();
+        return money;
+    }
+
 } // bank_cli

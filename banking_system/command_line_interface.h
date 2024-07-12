@@ -29,5 +29,6 @@ namespace bank_cli {
         bank::StandardAccountManagerFactory standardAccountManagerFactory;
         bank::PremiumAccountManagerFactory premiumAccountManagerFactory;
         int chooseOption(int numberOfOptions);
+        double provideAmountOfMoney();
     };
 }
