@@ -2,17 +2,17 @@
 
 namespace bank {
 
-    double FundsPLN::convertToPLN() {
+    double FundsPLN::convertToPLN() const {
         return getAmountOfMoney();
     }
 
-    double FundsPLN::convertToUSD() {
+    double FundsPLN::convertToUSD() const {
         // http request to get current exchange rate
         double constexpr eurToUsdRate = 0.25;
         return getAmountOfMoney() * eurToUsdRate;
     }
 
-    double FundsPLN::convertToEUR() {
+    double FundsPLN::convertToEUR() const {
         // http request to get current exchange rate
         double constexpr plnToEurRate = 0.23;
         return getAmountOfMoney() * plnToEurRate;

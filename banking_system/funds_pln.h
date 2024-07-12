@@ -7,9 +7,9 @@ namespace bank {
     public:
         explicit FundsPLN(double const amountOfMoney): Funds(amountOfMoney) {}
 
-        double convertToPLN() override;
-        double convertToUSD() override;
-        double convertToEUR() override;
+        double convertToPLN() const override;
+        double convertToUSD() const override;
+        double convertToEUR() const override;
         std::string getDetails() override;
     };
 }
