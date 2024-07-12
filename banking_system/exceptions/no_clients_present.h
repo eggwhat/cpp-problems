@@ -1,11 +1,10 @@
 #pragma once
 
-#include <exception>
+#include "exception.h"
 
 namespace exceptions {
-    class NoClientsPresent: public std::exception {
+    class NoClientsPresent: public Exception {
     public:
-        explicit NoClientsPresent() = default;
-        char const* what() const noexcept override { return "There are no clients present."; }
+        explicit NoClientsPresent() { m_message += "no clients present in database."; }
     };
 }

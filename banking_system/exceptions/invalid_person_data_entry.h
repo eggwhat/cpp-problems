@@ -1,15 +1,14 @@
 #pragma once
 
-#include <exception>
 #include <string>
 
+#include "exception.h"
+
 namespace exceptions {
-    class InvalidPersonDataEntry: public std::exception {
+    class InvalidPersonDataEntry: public Exception {
     public:
-        explicit InvalidPersonDataEntry(std::string const& fieldName) :
-            m_message( "Required filled is empty: " + fieldName) {}
-        char const* what() const noexcept override { return m_message.c_str(); }
-    private:
-        std::string m_message;
+        explicit InvalidPersonDataEntry(std::string const& fieldName) {
+            m_message += "field cannot be empty '" + fieldName + "'.";
+        }
     };
 }

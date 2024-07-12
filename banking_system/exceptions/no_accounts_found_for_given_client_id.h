@@ -1,11 +1,10 @@
 #pragma once
 
-#include <exception>
+#include "exception.h"
 
 namespace exceptions {
-    class NoAccountFoundForGivenClientId: public std::exception {
+    class NoAccountFoundForGivenClientId: public Exception {
     public:
-        explicit NoAccountFoundForGivenClientId() = default;
-        char const* what() const noexcept override { return "There are no account for client with given id."; }
+        explicit NoAccountFoundForGivenClientId()  { m_message += "no accounts found for given client ID."; }
     };
 }

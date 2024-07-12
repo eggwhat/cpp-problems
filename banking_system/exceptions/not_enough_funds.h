@@ -1,11 +1,10 @@
 #pragma once
 
-#include <exception>
+#include "exception.h"
 
 namespace exceptions {
-    class NotEnoughFunds: public std::exception {
+    class NotEnoughFunds: public Exception {
     public:
-        explicit NotEnoughFunds() = default;
-        char const* what() const noexcept override { return "You don't have that much money."; }
+        explicit NotEnoughFunds() { m_message += "not enough funds to withdraw."; }
     };
 }

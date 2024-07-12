@@ -1,11 +1,10 @@
 #pragma once
 
-#include <exception>
+#include "exception.h"
 
 namespace exceptions {
-    class ClientNotFound: public std::exception {
+    class ClientNotFound: public Exception {
     public:
-        explicit ClientNotFound() = default;
-        char const* what() const noexcept override { return "Client with given ID does not exist."; }
+        explicit ClientNotFound() { m_message += "client with given ID was not found."; }
     };
 }

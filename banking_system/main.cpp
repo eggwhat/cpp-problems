@@ -3,6 +3,7 @@
 #include "premium_account_manager_factory.h"
 #include "standard_account_manager_factory.h"
 #include "command_line_interface.h"
+#include "exceptions/exception.h"
 
 int main() {
     auto maintenance = bank::Maintenance();
@@ -31,7 +32,7 @@ int main() {
                     std::cout << "Invalid option. Please try again." << std::endl;
             }
         }
-        catch (std::exception& exception) {
+        catch (exceptions::Exception& exception) {
             std::cerr << "Caught exception: " << exception.what() << std::endl;
         }
     }
