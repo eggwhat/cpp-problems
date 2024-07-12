@@ -28,5 +28,6 @@ namespace bank_cli {
         bank::Maintenance& m_maintenance;
         bank::StandardAccountManagerFactory standardAccountManagerFactory;
         bank::PremiumAccountManagerFactory premiumAccountManagerFactory;
+        int chooseOption(int numberOfOptions);
     };
 }

@@ -15,6 +15,6 @@ namespace bank {
     }
 
     bool Account::isPremium() const {
-        return accountType == Account::AccountType::Premium;
+        return accountType == AccountType::Premium;
     }
 }

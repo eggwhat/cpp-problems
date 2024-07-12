@@ -9,28 +9,32 @@
 #include "funds_pln.h"
 #include "funds_usd.h"
 #include "maintenance.h"
+#include "exceptions/exception.h"
 
 namespace bank_cli {
     void CommandLineInterface::init() {
-        int option;
         while(true) {
-            std::cout << "Choose an option: " << std::endl;
-            std::cout << "1) create new client profile: " << std::endl;
-            std::cout << "2) list all clients: " << std::endl;
-            std::cout << "3) quit " << std::endl;
-            std::cin >> option;
+            try {
+                std::cout << "Choose an option: " << std::endl;
+                std::cout << "1) create new client profile: " << std::endl;
+                std::cout << "2) list all clients: " << std::endl;
+                std::cout << "3) quit " << std::endl;
 
-            switch (option) {
-                case 1:
-                    createNewClientProfile();
-                break;
-                case 2:
-                    chooseClient();
-                break;
-                case 3:
-                    return;
-                default:
-                    std::cout << "Invalid option. Please try again." << std::endl;
+                switch (chooseOption(3)) {
+                    case 1:
+                        createNewClientProfile();
+                    break;
+                    case 2:
+                        chooseClient();
+                    break;
+                    case 3:
+                        return;
+                    default:
+                        std::cout << "Invalid option. Please try again." << std::endl;
+                }
+            }
+            catch (exceptions::Exception& exception) {
+                std::cerr << exception.what() << std::endl;
             }
         }
     }
@@ -71,12 +75,10 @@ namespace bank_cli {
         std::cin >> clientId;
         auto const client = m_maintenance.getClient(clientId);
 
-        int clientOption;
         std::cout << "Choose an option: " << std::endl;
         std::cout << "1) create a new account: " << std::endl;
         std::cout << "2) choose an account: " << std::endl;
-        std::cin >> clientOption;
-        switch (clientOption) {
+        switch (chooseOption(2)) {
             case 1: {
                 int isPremiumAccount;
                 std::cout << "Premium account (yes=0):" << std::endl;
@@ -119,15 +121,13 @@ namespace bank_cli {
                 std::cout << "Choose account: " << std::endl;
                 unsigned int accountIndex;
                 std::cin >> accountIndex;
-                int accountOption;
                 auto const& account = *accounts[accountIndex];
                 auto const manager = bank::Maintenance::createAccountManager(account);
                 std::cout << "Choose an option: " << std::endl;
                 std::cout << "1) show account details: " << std::endl;
                 std::cout << "2) deposit money: " << std::endl;
                 std::cout << "3) withdraw money: " << std::endl;
-                std::cin >> accountOption;
-                switch (accountOption) {
+                switch (chooseOption(3)) {
                     case 1:
                         std::cout << manager->getAccountDetails(account) << std::endl;
                         break;
@@ -146,5 +146,18 @@ namespace bank_cli {
             default:
                 break;
         }
+    }
+
+    int CommandLineInterface::chooseOption(int numberOfOptions) {
+        int option;
+        while (true) {
+            std::cin >> option;
+            if (!std::cin.fail() && option >= 1 || option <= numberOfOptions)
+                break;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Provide valid option!" << std::endl;
+        }
+        return option;
     }
 } // bank_cli
