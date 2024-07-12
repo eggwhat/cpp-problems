@@ -1,6 +1,6 @@
 #pragma once
 
-#include "i_manager.h"
+#include "interfaces/i_manager.h"
 
 namespace bank {
     class PremiumAccountManager: public IManager {

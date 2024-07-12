@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(banking_system main.cpp
         person.cpp
         person.h
-        i_account.h
-        i_funds.h
+        interfaces/i_account.h
+        interfaces/i_funds.h
         standard_account.cpp
         standard_account.h
         premium_account.cpp
@@ -18,14 +18,14 @@ add_executable(banking_system main.cpp
         funds_usd.h
         funds_eur.cpp
         funds_eur.h
-        i_manager.h
+        interfaces/i_manager.h
         premium_account_manager.cpp
         premium_account_manager.h
         standard_account_manager.cpp
         standard_account_manager.h
         maintenance.cpp
         maintenance.h
-        manager_factory.h
+        interfaces/i_manager_factory.h
         standard_account_manager_factory.cpp
         standard_account_manager_factory.h
         premium_account_manager_factory.cpp

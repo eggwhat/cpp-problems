@@ -1,6 +1,7 @@
 #pragma once
 
-#include "i_account.h"
+#include "interfaces/i_account.h"
+#include "interfaces/i_funds.h"
 #include "person.h"
 
 namespace bank {

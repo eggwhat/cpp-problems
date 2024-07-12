@@ -2,8 +2,6 @@
 
 #include <string>
 
-#include "i_funds.h"
-
 namespace bank {
     class IAccount {
     public:

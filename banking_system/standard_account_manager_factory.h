@@ -1,9 +1,9 @@
 #pragma once
 
-#include "manager_factory.h"
+#include "interfaces/i_manager_factory.h"
 
 namespace bank {
-    class StandardAccountManagerFactory: public ManagerFactory {
+    class StandardAccountManagerFactory: public IManagerFactory {
     public:
         std::unique_ptr<IManager> createManager() override;
     };

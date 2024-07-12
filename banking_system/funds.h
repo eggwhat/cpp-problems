@@ -1,6 +1,6 @@
 #pragma once
 
-#include "i_funds.h"
+#include "interfaces/i_funds.h"
 
 namespace bank {
     class Funds: public IFunds {

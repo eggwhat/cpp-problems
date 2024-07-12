@@ -5,9 +5,9 @@
 #include "i_manager.h"
 
 namespace bank {
-    class ManagerFactory {
+    class IManagerFactory {
     public:
-        virtual ~ManagerFactory() = default;
+        virtual ~IManagerFactory() = default;
 
         virtual std::unique_ptr<IManager> createManager() = 0;
     };

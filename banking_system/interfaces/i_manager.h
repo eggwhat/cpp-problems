@@ -4,7 +4,8 @@
 #include <memory>
 
 #include "i_account.h"
-#include "person.h"
+#include "i_funds.h"
+#include "../person.h"
 
 namespace bank {
     class IManager {

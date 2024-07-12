@@ -3,8 +3,8 @@
 #include <vector>
 
 #include "person.h"
-#include "i_account.h"
-#include "i_manager.h"
+#include "interfaces/i_account.h"
+#include "interfaces/i_manager.h"
 
 namespace bank {
     class Maintenance {
