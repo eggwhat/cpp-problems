@@ -14,15 +14,11 @@ namespace bank_cli {
             premiumAccountManagerFactory(bank::PremiumAccountManagerFactory()) {}
 
         void init();
-
         void createNewClientProfile();
-
         void depositMoney(std::unique_ptr<bank::IManager> const &accountManager,
                    std::unique_ptr<bank::IAccount> const& account);
-
         void withdrawMoney(std::unique_ptr<bank::IManager> const &accountManager,
                     std::unique_ptr<bank::IAccount> const& account);
-
         void chooseClient();
     private:
         bank::Maintenance& m_maintenance;

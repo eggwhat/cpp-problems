@@ -118,8 +118,7 @@ namespace bank_cli {
                 auto const accounts = m_maintenance.findClientAccounts(clientId);
                 bank::Maintenance::listClientAccounts(accounts);
                 std::cout << "Choose account: " << std::endl;
-                unsigned int accountIndex;
-                std::cin >> accountIndex;
+                int accountIndex = chooseOption(accounts.size());
                 auto const& account = *accounts[accountIndex];
                 auto const manager = bank::Maintenance::createAccountManager(account);
                 std::cout << "Choose an option: " << std::endl;
