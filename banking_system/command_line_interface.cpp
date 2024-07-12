@@ -11,6 +11,30 @@
 #include "maintenance.h"
 
 namespace bank_cli {
+    void CommandLineInterface::init(bank::Maintenance& maintenance) {
+        int option;
+        while(true) {
+            std::cout << "Choose an option: " << std::endl;
+            std::cout << "1) create new client profile: " << std::endl;
+            std::cout << "2) list all clients: " << std::endl;
+            std::cout << "3) quit " << std::endl;
+            std::cin >> option;
+
+            switch (option) {
+                case 1:
+                    createNewClientProfile(maintenance);
+                break;
+                case 2:
+                    chooseClient(maintenance);
+                break;
+                case 3:
+                    return;
+                default:
+                    std::cout << "Invalid option. Please try again." << std::endl;
+            }
+        }
+    }
+
     void CommandLineInterface::createNewClientProfile(bank::Maintenance& maintenance) {
         std::string firstName, middleName, lastName;
         std::cout << "Provide a first name:" << std::endl;
@@ -40,8 +64,7 @@ namespace bank_cli {
         std::cout << accountManager->getAccountDetails(account);
     }
 
-    void CommandLineInterface::chooseClient(bank::Maintenance& maintenance, bank::StandardAccountManagerFactory& standardAccountManagerFactory,
-            bank::PremiumAccountManagerFactory& premiumAccountManagerFactory) {
+    void CommandLineInterface::chooseClient(bank::Maintenance& maintenance) {
         std::cout << "Choose a client:" << std::endl;
         maintenance.listClients();
         unsigned int clientId;
