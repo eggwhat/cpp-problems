@@ -21,8 +21,9 @@ namespace bank {
     }
 
     void Maintenance::listClients() const {
-        if (m_clients.empty())
+        if (m_clients.empty()) {
             throw exceptions::NoClientsPresent();
+        }
 
         for(auto const& client: m_clients) {
             std::cout << "Client ID: " << client->id << ". Details: " << client->getPersonDetails() << std::endl;
@@ -43,8 +44,10 @@ namespace bank {
             it != m_accounts.end(); it = std::find_if(++it, m_accounts.end(), isClientAccount)) {
             matches.push_back(it);
         }
-        if (matches.empty())
+        if (matches.empty()) {
             throw exceptions::NoAccountFoundForGivenClientId();
+        }
+
         return matches;
     }
 
@@ -59,8 +62,9 @@ namespace bank {
     std::shared_ptr<Person> Maintenance::getClient(unsigned int clientId) const {
         auto const it =  std::find_if(m_clients.begin(), m_clients.end(),
             [=](std::shared_ptr<Person> const& client){ return clientId == client->id;});
-        if(it == std::end(m_clients))
+        if(it == std::end(m_clients)) {
             throw exceptions::ClientNotFound();
+        }
 
         return *it;
     }

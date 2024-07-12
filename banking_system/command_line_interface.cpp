@@ -147,8 +147,9 @@ namespace bank_cli {
         int option;
         while (true) {
             std::cin >> option;
-            if (!std::cin.fail() && option >= lowestOptionNumber && option < numberOfOptions + lowestOptionNumber)
+            if (!std::cin.fail() && option >= lowestOptionNumber && option < numberOfOptions + lowestOptionNumber) {
                 break;
+            }
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "Provide valid option!" << std::endl;
@@ -169,8 +170,9 @@ namespace bank_cli {
     double CommandLineInterface::provideAmountOfMoney() {
         double money;
         std::cin >> money;
-        if(std::cin.fail())
+        if(std::cin.fail()) {
             throw exceptions::InvalidMoneyValue();
+        }
         return money;
     }
 
