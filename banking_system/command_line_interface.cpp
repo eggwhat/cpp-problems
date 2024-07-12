@@ -1,8 +1,9 @@
 #include "command_line_interface.h"
 
 #include <iostream>
-#include <string>
 #include <memory>
+#include <cctype>
+#include <algorithm>
 #include <utility>
 
 #include "funds_eur.h"
@@ -11,6 +12,7 @@
 #include "maintenance.h"
 #include "exceptions/exception.h"
 #include "exceptions/invalid_money_value.h"
+#include "exceptions/invalid_person_data_input.h"
 
 namespace bank_cli {
     void CommandLineInterface::init() {
@@ -41,13 +43,12 @@ namespace bank_cli {
     }
 
     void CommandLineInterface::createNewClientProfile() {
-        std::string firstName, middleName, lastName;
         std::cout << "Provide a first name:" << std::endl;
-        std::cin >> firstName;
+        std::string firstName = provideAlphanumericString("first name");
         std::cout << "Provide a middle name:" << std::endl;
-        std::cin >> middleName;
+        std::string middleName = provideAlphanumericString("second name");
         std::cout << "Provide a last name:" << std::endl;
-        std::cin >> lastName;
+        std::string lastName = provideAlphanumericString("last name");
         m_maintenance.addClient(std::make_shared<bank::Person>(firstName, middleName, lastName));
     }
 
@@ -157,6 +158,16 @@ namespace bank_cli {
             std::cout << "Provide valid option!" << std::endl;
         }
         return option;
+    }
+
+    std::string CommandLineInterface::provideAlphanumericString(std::string const& fieldName) {
+        std::string value;
+        std::cin >> value;
+        if(value.empty() || std::end(value) != std::find_if(value.begin(), value.end(), [](char const c)
+            { return !std::isalpha(c); })) {
+            throw exceptions::InvalidPersonDataInput(fieldName);
+        }
+        return value;
     }
 
     double CommandLineInterface::provideAmountOfMoney() {

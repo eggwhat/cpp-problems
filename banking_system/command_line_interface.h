@@ -1,10 +1,11 @@
 #pragma once
 
+#include <string>
+
 #include "maintenance.h"
 #include "premium_account_manager.h"
 #include "premium_account_manager_factory.h"
 #include "standard_account_manager_factory.h"
-#include "command_line_interface.h"
 
 namespace bank_cli {
     class CommandLineInterface {
@@ -25,6 +26,7 @@ namespace bank_cli {
         bank::StandardAccountManagerFactory standardAccountManagerFactory;
         bank::PremiumAccountManagerFactory premiumAccountManagerFactory;
         int chooseOption(int numberOfOptions);
+        std::string provideAlphanumericString(std::string const& fieldName);
         double provideAmountOfMoney();
     };
 }
