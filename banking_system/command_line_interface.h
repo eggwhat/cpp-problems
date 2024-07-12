@@ -25,7 +25,7 @@ namespace bank_cli {
         bank::Maintenance& m_maintenance;
         bank::StandardAccountManagerFactory standardAccountManagerFactory;
         bank::PremiumAccountManagerFactory premiumAccountManagerFactory;
-        int chooseOption(int numberOfOptions);
+        int chooseOption(int lowestOptionNumber, int numberOfOptions);
         std::string provideAlphanumericString(std::string const& fieldName);
         double provideAmountOfMoney();
     };

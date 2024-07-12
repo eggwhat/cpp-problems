@@ -23,7 +23,7 @@ namespace bank_cli {
                 std::cout << "2) list all clients: " << std::endl;
                 std::cout << "3) quit " << std::endl;
 
-                switch (chooseOption(3)) {
+                switch (chooseOption(1,3)) {
                     case 1:
                         createNewClientProfile();
                     break;
@@ -78,22 +78,18 @@ namespace bank_cli {
         std::cout << "Choose an option: " << std::endl;
         std::cout << "1) create a new account: " << std::endl;
         std::cout << "2) choose an account: " << std::endl;
-        switch (chooseOption(2)) {
+        switch (chooseOption(1,2)) {
             case 1: {
-                int isPremiumAccount;
-                std::cout << "Premium account (yes=0):" << std::endl;
-                std::cin >> isPremiumAccount;
+                std::cout << "Premium account (yes=0/no=1):" << std::endl;
                 std::unique_ptr<bank::IFunds> funds;
                 std::unique_ptr<bank::IManager> manager;
-                if(isPremiumAccount == 0) {
+                if(chooseOption(0,2) == 0) {
                     manager = premiumAccountManagerFactory.createManager();
-                    int fundsOption;
                     std::cout << "Choose a currency: " << std::endl;
                     std::cout << "1) Euro: " << std::endl;
                     std::cout << "2) Polish Zloty: " << std::endl;
                     std::cout << "3) American Dollars: " << std::endl;
-                    std::cin >> fundsOption;
-                    switch (fundsOption) {
+                    switch (chooseOption(1,3)) {
                         case 1:
                             funds = std::make_unique<bank::FundsEUR>(0.0);
                             break;
@@ -119,14 +115,14 @@ namespace bank_cli {
                 auto const accounts = m_maintenance.findClientAccounts(clientId);
                 bank::Maintenance::listClientAccounts(accounts);
                 std::cout << "Choose account: " << std::endl;
-                int accountIndex = chooseOption(accounts.size());
+                int accountIndex = chooseOption(0,accounts.size());
                 auto const& account = *accounts[accountIndex];
                 auto const manager = bank::Maintenance::createAccountManager(account);
                 std::cout << "Choose an option: " << std::endl;
                 std::cout << "1) show account details: " << std::endl;
                 std::cout << "2) deposit money: " << std::endl;
                 std::cout << "3) withdraw money: " << std::endl;
-                switch (chooseOption(3)) {
+                switch (chooseOption(1,3)) {
                     case 1:
                         std::cout << manager->getAccountDetails(account) << std::endl;
                         break;
@@ -147,11 +143,11 @@ namespace bank_cli {
         }
     }
 
-    int CommandLineInterface::chooseOption(int numberOfOptions) {
+    int CommandLineInterface::chooseOption(int lowestOptionNumber, int numberOfOptions) {
         int option;
         while (true) {
             std::cin >> option;
-            if (!std::cin.fail() && option >= 1 && option <= numberOfOptions)
+            if (!std::cin.fail() && option >= lowestOptionNumber && option < numberOfOptions + lowestOptionNumber)
                 break;
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
