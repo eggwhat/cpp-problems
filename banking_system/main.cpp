@@ -6,7 +6,7 @@
 
 int main() {
     auto maintenance = bank::Maintenance();
-    bank_cli::CommandLineInterface cli;
-    cli.init(maintenance);
+    auto cli = bank_cli::CommandLineInterface(maintenance);
+    cli.init();
     return 0;
 }

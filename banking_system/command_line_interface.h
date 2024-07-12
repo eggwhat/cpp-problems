@@ -9,12 +9,13 @@
 namespace bank_cli {
     class CommandLineInterface {
     public:
-        CommandLineInterface(): standardAccountManagerFactory(bank::StandardAccountManagerFactory()),
+        explicit CommandLineInterface(bank::Maintenance& maintenance): m_maintenance(maintenance),
+            standardAccountManagerFactory(bank::StandardAccountManagerFactory()),
             premiumAccountManagerFactory(bank::PremiumAccountManagerFactory()) {}
 
-        void init(bank::Maintenance& maintenance);
+        void init();
 
-        void createNewClientProfile(bank::Maintenance& maintenance);
+        void createNewClientProfile();
 
         void depositMoney(std::unique_ptr<bank::IManager> const &accountManager,
                    std::unique_ptr<bank::IAccount> const& account);
@@ -22,8 +23,9 @@ namespace bank_cli {
         void withdrawMoney(std::unique_ptr<bank::IManager> const &accountManager,
                     std::unique_ptr<bank::IAccount> const& account);
 
-        void chooseClient(bank::Maintenance& maintenance);
+        void chooseClient();
     private:
+        bank::Maintenance& m_maintenance;
         bank::StandardAccountManagerFactory standardAccountManagerFactory;
         bank::PremiumAccountManagerFactory premiumAccountManagerFactory;
     };

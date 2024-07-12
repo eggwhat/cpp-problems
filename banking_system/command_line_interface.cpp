@@ -11,7 +11,7 @@
 #include "maintenance.h"
 
 namespace bank_cli {
-    void CommandLineInterface::init(bank::Maintenance& maintenance) {
+    void CommandLineInterface::init() {
         int option;
         while(true) {
             std::cout << "Choose an option: " << std::endl;
@@ -22,10 +22,10 @@ namespace bank_cli {
 
             switch (option) {
                 case 1:
-                    createNewClientProfile(maintenance);
+                    createNewClientProfile();
                 break;
                 case 2:
-                    chooseClient(maintenance);
+                    chooseClient();
                 break;
                 case 3:
                     return;
@@ -35,7 +35,7 @@ namespace bank_cli {
         }
     }
 
-    void CommandLineInterface::createNewClientProfile(bank::Maintenance& maintenance) {
+    void CommandLineInterface::createNewClientProfile() {
         std::string firstName, middleName, lastName;
         std::cout << "Provide a first name:" << std::endl;
         std::cin >> firstName;
@@ -43,7 +43,7 @@ namespace bank_cli {
         std::cin >> middleName;
         std::cout << "Provide a last name:" << std::endl;
         std::cin >> lastName;
-        maintenance.addClient(std::make_shared<bank::Person>(firstName, middleName, lastName));
+        m_maintenance.addClient(std::make_shared<bank::Person>(firstName, middleName, lastName));
     }
 
     void CommandLineInterface::depositMoney(std::unique_ptr<bank::IManager> const& accountManager, std::unique_ptr<bank::IAccount> const& account) {
@@ -64,12 +64,12 @@ namespace bank_cli {
         std::cout << accountManager->getAccountDetails(account);
     }
 
-    void CommandLineInterface::chooseClient(bank::Maintenance& maintenance) {
+    void CommandLineInterface::chooseClient() {
         std::cout << "Choose a client:" << std::endl;
-        maintenance.listClients();
+        m_maintenance.listClients();
         unsigned int clientId;
         std::cin >> clientId;
-        auto const client = maintenance.getClient(clientId);
+        auto const client = m_maintenance.getClient(clientId);
 
         int clientOption;
         std::cout << "Choose an option: " << std::endl;
@@ -110,11 +110,11 @@ namespace bank_cli {
                     manager = standardAccountManagerFactory.createManager();
                     funds = std::make_unique<bank::FundsEUR>(0.0);
                 }
-                maintenance.addAccount(manager->createAccount(client, std::move(funds)));
+                m_maintenance.addAccount(manager->createAccount(client, std::move(funds)));
             }
             case 2: {
                 std::cout << "Client accounts: " << std::endl;
-                auto const accounts = maintenance.findClientAccounts(clientId);
+                auto const accounts = m_maintenance.findClientAccounts(clientId);
                 bank::Maintenance::listClientAccounts(accounts);
                 std::cout << "Choose account: " << std::endl;
                 unsigned int accountIndex;
