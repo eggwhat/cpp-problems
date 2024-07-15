@@ -5,6 +5,6 @@
 namespace exceptions {
     class ClientNotFound: public Exception {
     public:
-        explicit ClientNotFound() { m_message += "client with given ID was not found."; }
+        explicit ClientNotFound() : Exception( "client with given ID was not found.") {}
     };
 }

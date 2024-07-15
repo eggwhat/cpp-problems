@@ -4,8 +4,6 @@
 namespace exceptions {
     class InvalidMoneyValue: public Exception {
     public:
-        explicit InvalidMoneyValue() {
-            m_message += "invalid money value.";
-        }
+        explicit InvalidMoneyValue() : Exception("invalid money value.") {}
     };
 }

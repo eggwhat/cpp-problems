@@ -6,9 +6,9 @@
 namespace exceptions {
     class Exception: public std::exception {
     public:
-        explicit Exception() :m_message( "Exception raised! Details: ") {}
-        char const* what() const noexcept override { return m_message.c_str(); }
-    protected:
+        explicit Exception(std::string const& message);
+        char const* what() const noexcept override;
+    private:
         std::string m_message;
     };
 }

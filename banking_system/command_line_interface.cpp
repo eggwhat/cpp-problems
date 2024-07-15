@@ -46,7 +46,7 @@ namespace bank_cli {
         std::cout << "Provide a first name:" << std::endl;
         std::string firstName = provideAlphanumericString("first name");
         std::cout << "Provide a middle name:" << std::endl;
-        std::string middleName = provideAlphanumericString("second name");
+        std::string middleName = provideAlphanumericString("middle name");
         std::cout << "Provide a last name:" << std::endl;
         std::string lastName = provideAlphanumericString("last name");
         m_maintenance.addClient(std::make_shared<bank::Person>(firstName, middleName, lastName));

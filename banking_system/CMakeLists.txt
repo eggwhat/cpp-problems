@@ -43,4 +43,5 @@ add_executable(banking_system main.cpp
         exceptions/invalid_person_data_input.h
         exceptions/exception.h
         exceptions/invalid_money_value.h
+        exceptions/exception.cpp
 )

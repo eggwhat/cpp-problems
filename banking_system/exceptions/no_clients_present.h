@@ -5,6 +5,6 @@
 namespace exceptions {
     class NoClientsPresent: public Exception {
     public:
-        explicit NoClientsPresent() { m_message += "no clients present in database."; }
+        explicit NoClientsPresent() : Exception("no clients present in database.") {}
     };
 }

@@ -7,8 +7,7 @@
 namespace exceptions {
     class InvalidPersonDataInput: public Exception {
     public:
-        explicit InvalidPersonDataInput(std::string const& fieldName) {
-            m_message += "field cannot be empty or contain non-alphabetic characters '" + fieldName + "'.";
-        }
+        explicit InvalidPersonDataInput(std::string const& fieldName)
+            : Exception("field cannot be empty or contain non-alphabetic characters '" + fieldName + "'.") {}
     };
 }

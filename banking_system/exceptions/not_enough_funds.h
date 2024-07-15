@@ -5,6 +5,6 @@
 namespace exceptions {
     class NotEnoughFunds: public Exception {
     public:
-        explicit NotEnoughFunds() { m_message += "not enough funds to withdraw."; }
+        explicit NotEnoughFunds() : Exception("not enough funds to withdraw.") {}
     };
 }
