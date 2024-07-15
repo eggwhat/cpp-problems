@@ -2,6 +2,9 @@
 
 namespace bank {
 
+    Account::Account(std::shared_ptr<Person> person, std::unique_ptr<IFunds> funds, AccountType accountType) :
+            m_accountType(accountType), m_person(std::move(person)), m_funds(std::move(funds)) {}
+
     unsigned int Account::getUserId() const {
         return m_person->id;
     }
@@ -15,6 +18,6 @@ namespace bank {
     }
 
     bool Account::isPremium() const {
-        return accountType == AccountType::Premium;
+        return m_accountType == AccountType::Premium;
     }
 }

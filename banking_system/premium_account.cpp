@@ -6,8 +6,7 @@
 namespace bank {
 
     PremiumAccount::PremiumAccount(std::shared_ptr<Person> person, std::unique_ptr<IFunds> funds):
-            Account(std::move(person), std::move(funds)) {
-        accountType = AccountType::Premium;
+            Account(std::move(person), std::move(funds), AccountType::Premium) {
         benefits = std::set<Benefits> { Benefits::FreeChecks, Benefits::DedicatedCustomerService };
     }
 
