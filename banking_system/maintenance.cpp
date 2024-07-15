@@ -4,7 +4,6 @@
 #include <iterator>
 #include <iostream>
 #include <stdexcept>
-#include <utility>
 
 #include "account.h"
 #include "premium_account_manager.h"
@@ -15,8 +14,7 @@
 
 
 namespace bank {
-    Maintenance::Maintenance() : m_clients(std::vector<std::shared_ptr<Person>>()),
-        m_accounts(std::vector<std::unique_ptr<IAccount>>()) {}
+    Maintenance::Maintenance() : m_clients(std::vector<std::shared_ptr<Person>>()) {}
 
     void Maintenance::listClients() const {
         if (m_clients.empty()) {
@@ -28,25 +26,30 @@ namespace bank {
         }
     }
 
-    void Maintenance::listClientAccounts(std::vector<std::vector<std::unique_ptr<IAccount>>::iterator> const& accounts) {
-        for(int i = 0; i < accounts.size(); ++i) {
-            std::cout << "Account nr " << i << ". Client: " << (*accounts[i])->getDetails() << std::endl;
+    void Maintenance::listClientAccounts() const {
+        int index = 0;
+        for(auto const& account: m_accounts) {
+            std::cout << "Account nr " << index << ". Client: " << account.second->getDetails() << std::endl;
+            ++index;
         }
     }
 
-    std::vector<std::vector<std::unique_ptr<IAccount>>::iterator> Maintenance::findClientAccounts(unsigned int const clientId) {
-        auto isClientAccount = [&clientId] (std::unique_ptr<IAccount> const& account)
-            { return clientId == account->getUserId();};
-        std::vector<std::vector<std::unique_ptr<IAccount>>::iterator> matches;
-        for ( auto it = std::find_if(m_accounts.begin(), m_accounts.end(), isClientAccount);
-            it != m_accounts.end(); it = std::find_if(++it, m_accounts.end(), isClientAccount)) {
-            matches.push_back(it);
-        }
-        if (matches.empty()) {
+    int Maintenance::getClientAccountsCount(unsigned int const clientId) const {
+        int accountsCount = m_accounts.count(clientId);
+        if (0 == accountsCount) {
             throw exceptions::NoAccountFoundForGivenClientId();
         }
+        return accountsCount;
+    }
 
-        return matches;
+    std::multimap<unsigned int, std::unique_ptr<IAccount>>::iterator Maintenance::findClientAccount(
+        unsigned int const clientId, int const accountIndex) {
+        auto it = m_accounts.find(clientId);
+        for(int i = 0; i < accountIndex; ++i, ++it) {}
+        if (it == m_accounts.end()) {
+            throw exceptions::NoAccountFoundForGivenClientId();
+        }
+        return it;
     }
 
     void Maintenance::addClient(std::shared_ptr<Person> client) {
@@ -54,7 +57,7 @@ namespace bank {
     }
 
     void Maintenance::addAccount(std::unique_ptr<IAccount> account) {
-        m_accounts.push_back(std::move(account));
+        m_accounts.emplace(account->getUserId(), std::move(account));
     }
 
     std::shared_ptr<Person> Maintenance::getClient(unsigned int clientId) const {

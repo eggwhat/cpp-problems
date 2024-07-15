@@ -1,6 +1,9 @@
 #pragma once
 
+#include <map>
 #include <vector>
+#include <functional>
+#include <utility>
 
 #include "person.h"
 #include "interfaces/i_account.h"
@@ -12,14 +15,16 @@ namespace bank {
         Maintenance();
 
         void listClients() const;
-        static void listClientAccounts(std::vector<std::vector<std::unique_ptr<IAccount>>::iterator> const& accounts) ;
-        std::vector<std::vector<std::unique_ptr<IAccount>>::iterator> findClientAccounts(unsigned int clientId);
+        void listClientAccounts() const;
+        int getClientAccountsCount(unsigned int clientId) const;
+        std::multimap<unsigned int, std::unique_ptr<IAccount>>::iterator findClientAccount(unsigned int clientId,
+            int accountIndex);
         void addClient(std::shared_ptr<Person> client);
         void addAccount(std::unique_ptr<IAccount> account);
         std::shared_ptr<Person> getClient(unsigned int clientId) const;
         static std::unique_ptr<IManager> createAccountManager(std::unique_ptr<IAccount> const& account);
     private:
         std::vector<std::shared_ptr<Person>> m_clients;
-        std::vector<std::unique_ptr<IAccount>> m_accounts;
+        std::multimap<unsigned int, std::unique_ptr<IAccount>, std::less<>> m_accounts;
     };
 }

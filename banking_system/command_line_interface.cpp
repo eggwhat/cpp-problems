@@ -112,11 +112,10 @@ namespace bank_cli {
             }
             case 2: {
                 std::cout << "Client accounts: " << std::endl;
-                auto const accounts = m_maintenance.findClientAccounts(clientId);
-                bank::Maintenance::listClientAccounts(accounts);
+                m_maintenance.listClientAccounts();
                 std::cout << "Choose account: " << std::endl;
-                int accountIndex = chooseOption(0,accounts.size());
-                auto const& account = *accounts[accountIndex];
+                int const accountIndex = chooseOption(0,m_maintenance.getClientAccountsCount(clientId));
+                auto const& account = m_maintenance.findClientAccount(clientId, accountIndex)->second;
                 auto const manager = bank::Maintenance::createAccountManager(account);
                 std::cout << "Choose an option: " << std::endl;
                 std::cout << "1) show account details: " << std::endl;
