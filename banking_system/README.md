@@ -24,6 +24,6 @@ cmake --build .;
 ```
 Run
 ```bash
-./apps/banking_system
+./build/apps/banking_system
 ```
 
