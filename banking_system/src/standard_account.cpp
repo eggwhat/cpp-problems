@@ -1,6 +1,6 @@
-#include "standard_account.h"
+#include <banking/standard_account.h>
 
-#include "standard_account_manager.h"
+#include <banking/standard_account_manager.h>
 
 namespace bank {
     StandardAccount::StandardAccount(std::shared_ptr<Person> person, std::unique_ptr<IFunds> funds):

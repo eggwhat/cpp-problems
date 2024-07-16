@@ -1,4 +1,3 @@
-#include "command_line_interface.h"
 
 #include <iostream>
 #include <memory>
@@ -6,13 +5,14 @@
 #include <algorithm>
 #include <utility>
 
-#include "funds_eur.h"
-#include "funds_pln.h"
-#include "funds_usd.h"
-#include "maintenance.h"
-#include "exceptions/exception.h"
-#include "exceptions/invalid_money_value.h"
-#include "exceptions/invalid_person_data_input.h"
+#include <banking/command_line_interface.h>
+#include <banking/funds_eur.h>
+#include <banking/funds_pln.h>
+#include <banking/funds_usd.h>
+#include <banking/maintenance.h>
+#include <exceptions/exception.h>
+#include <exceptions/invalid_money_value.h>
+#include <exceptions/invalid_person_data_input.h>
 
 namespace bank_cli {
     void CommandLineInterface::init() {

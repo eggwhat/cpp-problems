@@ -1,7 +1,7 @@
-#include "standard_account_manager.h"
+#include <banking/standard_account_manager.h>
 
-#include "funds_eur.h"
-#include "standard_account.h"
+#include <banking/funds_eur.h>
+#include <banking/standard_account.h>
 
 namespace bank {
 

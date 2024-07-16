@@ -5,7 +5,7 @@
 
 #include "i_account.h"
 #include "i_funds.h"
-#include "../person.h"
+#include  <banking/person.h>
 
 namespace bank {
     class IManager {

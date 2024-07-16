@@ -1,4 +1,4 @@
-#include "person.h"
+#include <banking/person.h>
 
 namespace bank {
     Person::Person(std::string firstName, std::string middleName, std::string lastName):

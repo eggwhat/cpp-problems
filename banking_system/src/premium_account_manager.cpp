@@ -1,7 +1,7 @@
-#include "premium_account_manager.h"
+#include <banking/premium_account_manager.h>
 
-#include "funds_eur.h"
-#include "premium_account.h"
+#include <banking/funds_eur.h>
+#include <banking/premium_account.h>
 
 namespace bank {
     std::unique_ptr<IAccount> PremiumAccountManager::createAccount(std::shared_ptr<Person> person, std::unique_ptr<IFunds> funds) {

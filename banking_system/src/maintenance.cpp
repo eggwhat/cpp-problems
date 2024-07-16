@@ -1,16 +1,16 @@
-#include "maintenance.h"
-
 #include <algorithm>
 #include <iterator>
 #include <iostream>
 #include <stdexcept>
 
-#include "account.h"
-#include "premium_account_manager.h"
-#include "standard_account_manager.h"
-#include "exceptions/client_not_found.h"
-#include "exceptions/no_accounts_found_for_given_client_id.h"
-#include "exceptions/no_clients_present.h"
+#include <banking/maintenance.h>
+
+#include <banking/account.h>
+#include <banking/premium_account_manager.h>
+#include <banking/standard_account_manager.h>
+#include <exceptions/client_not_found.h>
+#include <exceptions/no_accounts_found_for_given_client_id.h>
+#include <exceptions/no_clients_present.h>
 
 
 namespace bank {
