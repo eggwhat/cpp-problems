@@ -1,2 +1,3 @@
 add_executable(banking_system main.cpp)
 target_compile_features(banking_system PRIVATE cxx_std_14)
+target_link_libraries(banking_system PRIVATE project_library)
