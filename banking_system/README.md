@@ -18,7 +18,12 @@ conan install . --output-folder=build --build=missing
 ```
 Build
 ```bash
-cd build
-cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release -GNinja
-cmake --build .
+cd build;
+cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release -GNinja;
+cmake --build .;
 ```
+Run
+```bash
+./apps/banking_system
+```
+
