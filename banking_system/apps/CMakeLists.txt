@@ -1,0 +1,2 @@
+add_executable(banking_system main.cpp)
+target_compile_features(banking_system PRIVATE cxx_std_14)
