@@ -8,6 +8,8 @@ standard_account.cpp standard_account_manager.cpp standard_account_manager_facto
 target_include_directories(banking_library PUBLIC ../include)
 
 target_link_libraries(banking_library boost::boost)
+target_link_libraries(banking_library SQLite::SQLite3)
+target_link_libraries(banking_library JsonCpp::JsonCpp)
 
 target_compile_features(banking_library PUBLIC cxx_std_14)
 

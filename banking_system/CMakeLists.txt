@@ -13,6 +13,8 @@ endif()
 
 
 find_package(Boost REQUIRED)
+find_package(SQLite3 REQUIRED)
+find_package(jsoncpp REQUIRED)
 
 add_subdirectory(src)
 
