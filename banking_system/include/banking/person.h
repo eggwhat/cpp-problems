@@ -12,8 +12,8 @@ namespace bank {
 
         unsigned int id;
         std::string getPersonDetails() const;
-        virtual void Serialize(Json::Value& root );
-        virtual void Deserialize(Json::Value& root);
+        void serialize(Json::Value& root) override;
+        void deserialize(Json::Value& root) override;
     private:
         std::string m_firstName;
         std::string m_middleName;
