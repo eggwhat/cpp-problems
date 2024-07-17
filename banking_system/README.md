@@ -4,9 +4,10 @@
 - CMake 3.12
 - C++ 14 compatible compiler
 - Conan 2.5
+- Ninja
 
 ## Steps to build
-Note that these steps work for MacOS only.
+Note that these steps work for macOS only.
 
 First we need a Conan profile 
 ```bash
