@@ -22,7 +22,8 @@ namespace bank_cli {
                 std::cout << "Choose an option: " << std::endl;
                 std::cout << "1) create new client profile: " << std::endl;
                 std::cout << "2) list all clients: " << std::endl;
-                std::cout << "3) quit " << std::endl;
+                std::cout << "3) list accounts statistics: " << std::endl;
+                std::cout << "4) quit " << std::endl;
 
                 switch (chooseOption(1,3)) {
                     case 1:
@@ -32,6 +33,9 @@ namespace bank_cli {
                         chooseClient();
                     break;
                     case 3:
+                        m_maintenance.listStatistics();
+                        break;
+                    case 4:
                         return;
                     default:
                         std::cout << "Invalid option. Please try again." << std::endl;
