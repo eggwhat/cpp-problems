@@ -13,4 +13,16 @@ namespace bank {
         return !m_middleName.empty() ? m_firstName + " " + m_middleName + " " + m_lastName :
         m_firstName + " " + m_lastName;
     }
+
+    void Person::Serialize(Json::Value& root) {
+        root["firstName"] = m_firstName;
+        root["middleName"] = m_middleName;
+        root["lastName"] = m_lastName;
+    }
+
+    void Person::Deserialize(Json::Value& root) {
+        m_firstName = root.get("firstName", "UTF-8").asString();
+        m_middleName = root.get("middleName", "UTF-8").asString();
+        m_lastName = root.get("lastName", "UTF-8").asString();
+    }
 } // bank
