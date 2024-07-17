@@ -13,6 +13,7 @@
 #include <exceptions/exception.h>
 #include <exceptions/invalid_money_value.h>
 #include <exceptions/invalid_person_data_input.h>
+#include <validators/person_validator.h>
 
 namespace bank_cli {
     void CommandLineInterface::init() {
@@ -43,6 +44,7 @@ namespace bank_cli {
     }
 
     void CommandLineInterface::createNewClientProfile() {
+        std::cin.ignore();
         std::cout << "Provide a first name:" << std::endl;
         std::string firstName = provideAlphanumericString("first name");
         std::cout << "Provide a middle name:" << std::endl;
@@ -158,9 +160,9 @@ namespace bank_cli {
 
     std::string CommandLineInterface::provideAlphanumericString(std::string const& fieldName) {
         std::string value;
-        std::cin >> value;
-        if(value.empty() || std::end(value) != std::find_if(value.begin(), value.end(), [](char const c)
-            { return !std::isalpha(c); })) {
+        std::getline(std::cin, value);
+        validators::PersonValidator const validator;
+        if(!validator.validateName(value)) {
             throw exceptions::InvalidPersonDataInput(fieldName);
         }
         return value;
@@ -174,5 +176,4 @@ namespace bank_cli {
         }
         return money;
     }
-
 } // bank_cli

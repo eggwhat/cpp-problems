@@ -3,7 +3,9 @@
 namespace bank {
     Person::Person(std::string firstName, std::string middleName, std::string lastName):
             m_firstName(std::move(firstName)), m_middleName(std::move(middleName)),
-            m_lastName(std::move(lastName)), id{m_idCounter++} {}
+            m_lastName(std::move(lastName)), id{m_idCounter++} {
+
+    }
 
     unsigned int Person::m_idCounter = 0;
 
