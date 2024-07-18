@@ -3,7 +3,7 @@ file(GLOB HEADER_LIST CONFIGURE_DEPENDS "${BankingSystem_SOURCE_DIR}/include/*/*
 add_library(banking_library account.cpp command_line_interface.cpp funds.cpp funds_eur.cpp funds_pln.cpp funds_usd.cpp
 maintenance.cpp person.cpp premium_account.cpp premium_account_manager.cpp premium_account_manager_factory.cpp
 standard_account.cpp standard_account_manager.cpp standard_account_manager_factory.cpp exception.cpp
-person_validator.cpp json_serializer.cpp
+person_validator.cpp json_serializer.cpp banking_database.cpp
         ${HEADER_LIST})
 
 target_include_directories(banking_library PUBLIC ../include)

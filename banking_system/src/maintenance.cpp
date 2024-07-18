@@ -15,7 +15,7 @@
 
 
 namespace bank {
-    Maintenance::Maintenance() : m_clients(std::vector<std::shared_ptr<Person>>()) {}
+    Maintenance::Maintenance() : m_database(std::move(banking::SqliteWrapper::makeSqlite())) {}
 
     void Maintenance::listClients() const {
         if (m_clients.empty()) {
