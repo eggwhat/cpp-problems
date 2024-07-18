@@ -1,6 +1,7 @@
 #include <banking/banking_database.h>
 
 #include <iostream>
+#include <boost/format.hpp>
 
 namespace banking {
 
@@ -19,9 +20,10 @@ namespace banking {
         return executeQuery(query, nullptr, nullptr);
     }
 
-    int BankingDatabase::insertData() {
-        std::string const query = "INSERT INTO MyTable(Token, Details) VALUES('', );";
-        return executeQuery(query, nullptr, nullptr);
+    int BankingDatabase::insertData(std::string const& token, std::string const& jsonDetails) {
+        auto query = boost::format("INSERT INTO MyTable(Token, Details) VALUES('%1%', '%2%');")
+        % token % jsonDetails;
+        return executeQuery(query.str(), nullptr, nullptr);
     }
 
     int BankingDatabase::selectData() {

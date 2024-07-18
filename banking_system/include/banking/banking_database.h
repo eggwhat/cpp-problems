@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <string>
 #include <sqlite3.h>
 
 #include "interfaces/i_database.h"
@@ -12,7 +13,7 @@ namespace banking {
         void openDatabase(const std::string& dbName) override;
         int executeQuery(const std::string& query, int (*callback)(void*, int, char**, char**), void* data) override;
         int createTable() override;
-        int insertData() override;
+        int insertData(std::string const& token, std::string const& jsonDetails) override;
         int selectData() override;
     private:
         std::unique_ptr<sqlite3, SqliteWrapper::Closer> m_database;

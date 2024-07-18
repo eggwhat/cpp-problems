@@ -15,7 +15,9 @@
 
 
 namespace bank {
-    Maintenance::Maintenance() : m_database(std::move(banking::SqliteWrapper::makeSqlite())) {}
+    Maintenance::Maintenance() {
+
+    }
 
     void Maintenance::listClients() const {
         if (m_clients.empty()) {

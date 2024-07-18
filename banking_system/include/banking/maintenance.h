@@ -11,6 +11,8 @@
 #include "interfaces/i_manager.h"
 #include <utils/sqlite_wrapper.h>
 
+#include "interfaces/i_database.h"
+
 namespace bank {
     class Maintenance {
     public:
@@ -28,7 +30,7 @@ namespace bank {
         void addAccount(std::unique_ptr<IAccount> account);
         static std::unique_ptr<IManager> createAccountManager(std::unique_ptr<IAccount> const& account);
     private:
-        std::unique_ptr<sqlite3, banking::SqliteWrapper::Closer> m_database;
+        std::unique_ptr<banking::IDatabase> m_database;
         std::multimap<unsigned int, std::unique_ptr<IAccount>, std::less<>> m_accounts;
     };
 }
