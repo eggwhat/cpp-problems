@@ -1,4 +1,3 @@
-#include "command_line_interface.h"
 
 #include <iostream>
 #include <memory>
@@ -6,13 +5,15 @@
 #include <algorithm>
 #include <utility>
 
-#include "funds_eur.h"
-#include "funds_pln.h"
-#include "funds_usd.h"
-#include "maintenance.h"
-#include "exceptions/exception.h"
-#include "exceptions/invalid_money_value.h"
-#include "exceptions/invalid_person_data_input.h"
+#include <banking/command_line_interface.h>
+#include <banking/funds_eur.h>
+#include <banking/funds_pln.h>
+#include <banking/funds_usd.h>
+#include <banking/maintenance.h>
+#include <exceptions/exception.h>
+#include <exceptions/invalid_money_value.h>
+#include <exceptions/invalid_person_data_input.h>
+#include <validators/person_validator.h>
 
 namespace bank_cli {
     void CommandLineInterface::init() {
@@ -21,7 +22,8 @@ namespace bank_cli {
                 std::cout << "Choose an option: " << std::endl;
                 std::cout << "1) create new client profile: " << std::endl;
                 std::cout << "2) list all clients: " << std::endl;
-                std::cout << "3) quit " << std::endl;
+                std::cout << "3) list accounts statistics: " << std::endl;
+                std::cout << "4) quit " << std::endl;
 
                 switch (chooseOption(1,3)) {
                     case 1:
@@ -31,6 +33,9 @@ namespace bank_cli {
                         chooseClient();
                     break;
                     case 3:
+                        m_maintenance.listStatistics();
+                        break;
+                    case 4:
                         return;
                     default:
                         std::cout << "Invalid option. Please try again." << std::endl;
@@ -43,6 +48,7 @@ namespace bank_cli {
     }
 
     void CommandLineInterface::createNewClientProfile() {
+        std::cin.ignore();
         std::cout << "Provide a first name:" << std::endl;
         std::string firstName = provideAlphanumericString("first name");
         std::cout << "Provide a middle name:" << std::endl;
@@ -158,9 +164,9 @@ namespace bank_cli {
 
     std::string CommandLineInterface::provideAlphanumericString(std::string const& fieldName) {
         std::string value;
-        std::cin >> value;
-        if(value.empty() || std::end(value) != std::find_if(value.begin(), value.end(), [](char const c)
-            { return !std::isalpha(c); })) {
+        std::getline(std::cin, value);
+        validators::PersonValidator const validator;
+        if(!validator.validateName(value)) {
             throw exceptions::InvalidPersonDataInput(fieldName);
         }
         return value;
@@ -174,5 +180,4 @@ namespace bank_cli {
         }
         return money;
     }
-
 } // bank_cli

@@ -1,4 +1,4 @@
-#include "funds.h"
+#include <banking/funds.h>
 
 #include "exceptions/not_enough_funds.h"
 

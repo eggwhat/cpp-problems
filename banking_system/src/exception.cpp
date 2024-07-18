@@ -1,4 +1,4 @@
-#include "exception.h"
+#include <exceptions/exception.h>
 
 namespace exceptions {
 

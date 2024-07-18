@@ -1,16 +1,17 @@
-#include "maintenance.h"
-
 #include <algorithm>
 #include <iterator>
 #include <iostream>
 #include <stdexcept>
 
-#include "account.h"
-#include "premium_account_manager.h"
-#include "standard_account_manager.h"
-#include "exceptions/client_not_found.h"
-#include "exceptions/no_accounts_found_for_given_client_id.h"
-#include "exceptions/no_clients_present.h"
+#include <banking/maintenance.h>
+#include <boost/range/algorithm.hpp>
+
+#include <banking/account.h>
+#include <banking/premium_account_manager.h>
+#include <banking/standard_account_manager.h>
+#include <exceptions/client_not_found.h>
+#include <exceptions/no_accounts_found_for_given_client_id.h>
+#include <exceptions/no_clients_present.h>
 
 
 namespace bank {
@@ -34,12 +35,32 @@ namespace bank {
         }
     }
 
+    void Maintenance::listStatistics() const {
+        auto const numberOfPremiumAccounts = boost::range::count_if(m_accounts,
+            [](std::pair<unsigned int const, std::unique_ptr<IAccount> const&> const& account)
+            { return account.second->isPremium(); });
+        std::cout << "Accounts statistics: " << std::endl
+            << "total: " << m_accounts.size() << std::endl
+            << "standard: " << m_accounts.size() - numberOfPremiumAccounts << std::endl
+            << "premium: " << numberOfPremiumAccounts << std::endl;
+    }
+
     int Maintenance::getClientAccountsCount(unsigned int const clientId) const {
         int accountsCount = m_accounts.count(clientId);
         if (0 == accountsCount) {
             throw exceptions::NoAccountFoundForGivenClientId();
         }
         return accountsCount;
+    }
+
+    std::shared_ptr<Person> Maintenance::getClient(unsigned int clientId) const {
+        auto const it =  std::find_if(m_clients.begin(), m_clients.end(),
+            [=](std::shared_ptr<Person> const& client){ return clientId == client->id;});
+        if(it == std::end(m_clients)) {
+            throw exceptions::ClientNotFound();
+        }
+
+        return *it;
     }
 
     std::multimap<unsigned int, std::unique_ptr<IAccount>>::iterator Maintenance::findClientAccount(
@@ -58,16 +79,6 @@ namespace bank {
 
     void Maintenance::addAccount(std::unique_ptr<IAccount> account) {
         m_accounts.emplace(account->getUserId(), std::move(account));
-    }
-
-    std::shared_ptr<Person> Maintenance::getClient(unsigned int clientId) const {
-        auto const it =  std::find_if(m_clients.begin(), m_clients.end(),
-            [=](std::shared_ptr<Person> const& client){ return clientId == client->id;});
-        if(it == std::end(m_clients)) {
-            throw exceptions::ClientNotFound();
-        }
-
-        return *it;
     }
 
     std::unique_ptr<IManager> Maintenance::createAccountManager(std::unique_ptr<IAccount> const& account) {
