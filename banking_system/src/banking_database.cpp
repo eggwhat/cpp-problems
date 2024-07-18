@@ -16,12 +16,12 @@ namespace banking {
     }
 
     int BankingDatabase::createTable() {
-        std::string const query = "CREATE TABLE IF NOT EXISTS Clients(Id INTEGER PRIMARY KEY, Token varchar(50), Details TEXT);";
+        std::string const query = "CREATE TABLE IF NOT EXISTS Clients(Id INTEGER PRIMARY KEY, Token varchar(255), Details TEXT);";
         return executeQuery(query, nullptr, nullptr);
     }
 
     int BankingDatabase::insertData(std::string const& token, std::string const& jsonDetails) {
-        auto query = boost::format("INSERT INTO MyTable(Token, Details) VALUES('%1%', '%2%');")
+        auto query = boost::format("INSERT INTO Clients(Token, Details) VALUES('%1%', '%2%');")
         % token % jsonDetails;
         return executeQuery(query.str(), nullptr, nullptr);
     }
@@ -29,6 +29,12 @@ namespace banking {
     int BankingDatabase::selectData() {
         std::string const query = "SELECT * FROM Clients;";
         return executeQuery(query, callback, nullptr);
+    }
+
+    int BankingDatabase::getClient(unsigned int const clientId) {
+        // TODO: fix security issue
+        auto const query = boost::format("SELECT * FROM Clients WHERE Id = %1%;") % clientId;
+        return executeQuery(query.str(), callback, nullptr);
     }
 
     int BankingDatabase::callback(void* data, int argc, char** argv, char** azColName) {

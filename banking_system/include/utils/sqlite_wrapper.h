@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <iostream>
 #include <stdexcept>
 #include <sqlite3.h>
 #include <string>
@@ -12,6 +13,7 @@ namespace banking {
             void operator()(sqlite3* p) const
             {
                 sqlite3_close(p);
+                std::cout << "Database closed!" << std::endl;
             }
         };
 
@@ -22,6 +24,7 @@ namespace banking {
             if (err) {
                 throw std::runtime_error("failed to open sqlite");
             }
+            std::cout << "Database opened!" << std::endl;
             return std::unique_ptr<sqlite3, Closer>(buffer);
         }
     };

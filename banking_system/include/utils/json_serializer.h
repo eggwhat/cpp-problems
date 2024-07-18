@@ -5,8 +5,8 @@
 namespace banking {
     class JsonSerializer {
     public:
-        static bool serialize(std::shared_ptr<IJsonSerializable> const& obj, std::string& output );
-        static bool deserialize(std::shared_ptr<IJsonSerializable> const& obj, std::string const& input );
+        static bool serialize(IJsonSerializable* pObj, std::string& output );
+        static bool deserialize(IJsonSerializable* pObj, std::string const& input );
 
     private:
         JsonSerializer() {};

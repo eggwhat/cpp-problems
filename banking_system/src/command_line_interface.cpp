@@ -25,7 +25,7 @@ namespace bank_cli {
                 std::cout << "3) list accounts statistics: " << std::endl;
                 std::cout << "4) quit " << std::endl;
 
-                switch (chooseOption(1,3)) {
+                switch (chooseOption(1,4)) {
                     case 1:
                         createNewClientProfile();
                     break;
@@ -55,7 +55,7 @@ namespace bank_cli {
         std::string middleName = provideAlphanumericString("middle name");
         std::cout << "Provide a last name:" << std::endl;
         std::string lastName = provideAlphanumericString("last name");
-        m_maintenance.addClient(std::make_shared<bank::Person>(firstName, middleName, lastName));
+        m_maintenance.addClient(std::make_unique<bank::Person>(bank::Person(firstName, middleName, lastName)));
     }
 
     void CommandLineInterface::depositMoney(std::unique_ptr<bank::IManager> const& accountManager, std::unique_ptr<bank::IAccount> const& account) {
@@ -79,7 +79,8 @@ namespace bank_cli {
         m_maintenance.listClients();
         unsigned int clientId;
         std::cin >> clientId;
-        auto const client = m_maintenance.getClient(clientId);
+        m_maintenance.getClient(clientId);
+        auto client = std::make_shared<bank::Person>("", "", "");
 
         std::cout << "Choose an option: " << std::endl;
         std::cout << "1) create a new account: " << std::endl;
