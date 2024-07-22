@@ -8,7 +8,6 @@
 #include "utils/json_serializer.h"
 
 namespace banking {
-
     void BankingDatabase::openDatabase(const std::string &dbName) {
         m_database = SqliteWrapper::makeSqlite(dbName);
     }
@@ -25,17 +24,20 @@ namespace banking {
     }
 
     int BankingDatabase::insertData(std::string const& token, std::string const& jsonDetails) {
+        std::unique_lock<std::shared_timed_mutex> lock(m_mutex);
         auto const query = boost::format("INSERT INTO Clients(Token, Details) VALUES('%1%', '%2%');")
             % token % jsonDetails;
         return executeQuery(query.str(), nullptr, nullptr);
     }
 
     int BankingDatabase::selectData() {
+        std::shared_lock<std::shared_timed_mutex> lock(m_mutex);
         std::string const query = "SELECT * FROM Clients;";
         return executeQuery(query, printCallback, nullptr);
     }
 
     int BankingDatabase::getClient(unsigned int const clientId, std::unique_ptr<std::unique_ptr<bank::Person>> const& client) {
+        std::shared_lock<std::shared_timed_mutex> lock(m_mutex);
         // TODO: fix security issue
         auto const query = boost::format("SELECT * FROM Clients WHERE Id = %1%;") % clientId;
 
