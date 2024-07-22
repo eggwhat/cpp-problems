@@ -15,6 +15,6 @@ namespace banking {
         virtual int createTable() = 0;
         virtual int insertData(std::string const& token, std::string const& jsonDetails) = 0;
         virtual int selectData() = 0;
-        virtual int getClient(unsigned int clientId, std::vector<std::unique_ptr<bank::Person>>* clients) = 0;
+        virtual int getClient(unsigned int clientId, std::unique_ptr<std::unique_ptr<bank::Person>> const& client) = 0;
     };
 }

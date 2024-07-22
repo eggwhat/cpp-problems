@@ -22,7 +22,7 @@ namespace bank {
         void listClientAccounts(std::unique_ptr<Person> const& client) const;
         void listStatistics() const;
         int getClientAccountsCount(unsigned int clientId) const;
-        void getClient(unsigned int clientId, std::vector<std::unique_ptr<Person>>* clients) const;
+        void getClient(unsigned int clientId, std::unique_ptr<std::unique_ptr<Person>> const& client) const;
 
         std::multimap<unsigned int, std::unique_ptr<IAccount>>::iterator findClientAccount(unsigned int clientId,
             int accountIndex);

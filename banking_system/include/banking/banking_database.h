@@ -15,7 +15,7 @@ namespace banking {
         int createTable() override;
         int insertData(std::string const& token, std::string const& jsonDetails) override;
         int selectData() override;
-        int getClient(unsigned int clientId, std::vector<std::unique_ptr<bank::Person>>* clients) override;
+        int getClient(unsigned int clientId, std::unique_ptr<std::unique_ptr<bank::Person>> const& client) override;
     private:
         std::unique_ptr<sqlite3, SqliteWrapper::Closer> m_database;
 

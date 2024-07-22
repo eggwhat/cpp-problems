@@ -79,9 +79,9 @@ namespace bank_cli {
         m_maintenance.listClients();
         unsigned int clientId;
         std::cin >> clientId;
-        auto clients = std::make_unique<std::vector<std::unique_ptr<bank::Person>>>();
-        m_maintenance.getClient(clientId, clients.get());
-        std::cout << clients->operator[](0)->getPersonDetails() << std::endl;
+        auto client = std::make_unique<std::unique_ptr<bank::Person>>();
+        m_maintenance.getClient(clientId, client);
+        std::cout << client->get()->getPersonDetails() << std::endl;
 
         std::cout << "Choose an option: " << std::endl;
         std::cout << "1) create a new account: " << std::endl;
@@ -116,11 +116,11 @@ namespace bank_cli {
                     manager = standardAccountManagerFactory.createManager();
                     funds = std::make_unique<bank::FundsEUR>(0.0);
                 }
-                m_maintenance.addAccount(manager->createAccount(clients->operator[](0), std::move(funds)));
+                m_maintenance.addAccount(manager->createAccount(*client, std::move(funds)));
             }
             case 2: {
                 std::cout << "Client accounts: " << std::endl;
-                m_maintenance.listClientAccounts(clients->operator[](0));
+                m_maintenance.listClientAccounts(*client);
                 std::cout << "Choose account: " << std::endl;
                 int const accountIndex = chooseOption(0,m_maintenance.getClientAccountsCount(clientId));
                 auto const& account = m_maintenance.findClientAccount(clientId, accountIndex)->second;

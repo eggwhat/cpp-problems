@@ -55,9 +55,9 @@ namespace bank {
         return accountsCount;
     }
 
-    void Maintenance::getClient(unsigned int const clientId, std::vector<std::unique_ptr<Person>>* clients) const {
-        m_database->getClient(clientId, clients);
-        if(clients->empty()) {
+    void Maintenance::getClient(unsigned int const clientId, std::unique_ptr<std::unique_ptr<Person>> const& client) const {
+        m_database->getClient(clientId, client);
+        if(*client == nullptr) {
             throw exceptions::ClientNotFound();
         }
     }

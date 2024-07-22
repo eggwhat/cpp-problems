@@ -35,11 +35,11 @@ namespace banking {
         return executeQuery(query, printCallback, nullptr);
     }
 
-    int BankingDatabase::getClient(unsigned int const clientId, std::vector<std::unique_ptr<bank::Person>>* clients) {
+    int BankingDatabase::getClient(unsigned int const clientId, std::unique_ptr<std::unique_ptr<bank::Person>> const& client) {
         // TODO: fix security issue
         auto const query = boost::format("SELECT * FROM Clients WHERE Id = %1%;") % clientId;
 
-        return executeQuery(query.str(), getCallback, clients);
+        return executeQuery(query.str(), getCallback, client.get());
     }
 
     int BankingDatabase::printCallback(void* data, int argc, char** argv, char** azColName) {
@@ -51,10 +51,10 @@ namespace banking {
     }
 
     int BankingDatabase::getCallback(void* data, int argc, char** argv, char** azColName) {
-        auto* results = static_cast<std::vector<std::unique_ptr<bank::Person>> *>(data);
-        auto client = std::make_unique<bank::Person>("", argv[2], argv[1], std::atoi(argv[0]));
-        JsonSerializer::deserialize(client.get(), argv[2]);
-        results->emplace_back(std::move(client));
+        auto* results = static_cast<std::unique_ptr<bank::Person>*>(data);
+        auto client = new bank::Person("", argv[2], argv[1], std::atoi(argv[0]));
+        JsonSerializer::deserialize(client, argv[2]);
+        results->reset(client);
         return 0;
     }
 }
