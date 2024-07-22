@@ -8,9 +8,10 @@
 namespace bank {
     class Person : public banking::IJsonSerializable {
     public:
-        Person(std::string firstName, std::string middleName, std::string lastName);
+        Person(std::string firstName, std::string middleName, std::string lastName, unsigned int id = 0);
 
-        unsigned int id;
+        unsigned int const m_id;
+
         std::string getPersonDetails() const;
         void serialize(Json::Value& root) override;
         void deserialize(Json::Value& root) override;
@@ -18,6 +19,5 @@ namespace bank {
         std::string m_firstName;
         std::string m_middleName;
         std::string m_lastName;
-        static unsigned int m_idCounter;
     };
 }

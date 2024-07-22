@@ -9,7 +9,7 @@ namespace bank {
     public:
         enum class AccountType { Standard, Premium };
 
-        explicit Account(std::shared_ptr<Person> person, std::unique_ptr<IFunds> funds, AccountType accountType);
+        explicit Account(Person person, std::unique_ptr<IFunds> funds, AccountType accountType);
 
         unsigned int getUserId() const final;
         void depositMoney(double money) const final;
@@ -18,7 +18,7 @@ namespace bank {
 
         AccountType m_accountType;
     protected:
-        std::shared_ptr<Person> m_person;
+        Person m_person;
         std::unique_ptr<IFunds> m_funds;
     };
 }

@@ -79,8 +79,9 @@ namespace bank_cli {
         m_maintenance.listClients();
         unsigned int clientId;
         std::cin >> clientId;
-        m_maintenance.getClient(clientId);
-        auto client = std::make_shared<bank::Person>("", "", "");
+        auto clients = std::make_unique<std::vector<bank::Person>>();
+        m_maintenance.getClient(clientId, clients.get());
+        std::cout << clients->operator[](0).getPersonDetails() << std::endl;
 
         std::cout << "Choose an option: " << std::endl;
         std::cout << "1) create a new account: " << std::endl;
@@ -115,7 +116,7 @@ namespace bank_cli {
                     manager = standardAccountManagerFactory.createManager();
                     funds = std::make_unique<bank::FundsEUR>(0.0);
                 }
-                m_maintenance.addAccount(manager->createAccount(client, std::move(funds)));
+                m_maintenance.addAccount(manager->createAccount(clients->operator[](0), std::move(funds)));
             }
             case 2: {
                 std::cout << "Client accounts: " << std::endl;

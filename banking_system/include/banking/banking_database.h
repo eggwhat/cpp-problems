@@ -15,10 +15,11 @@ namespace banking {
         int createTable() override;
         int insertData(std::string const& token, std::string const& jsonDetails) override;
         int selectData() override;
-        int getClient(unsigned int clientId) override;
+        int getClient(unsigned int clientId, std::vector<bank::Person>* clients) override;
     private:
         std::unique_ptr<sqlite3, SqliteWrapper::Closer> m_database;
 
-        static int callback(void* data, int argc, char** argv, char** azColName);
+        static int printCallback(void* data, int argc, char** argv, char** azColName);
+        static int getCallback(void* data, int argc, char** argv, char** azColName);
     };
 }

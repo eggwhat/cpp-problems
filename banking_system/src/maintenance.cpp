@@ -54,8 +54,8 @@ namespace bank {
         return accountsCount;
     }
 
-    void Maintenance::getClient(unsigned int clientId) const {
-        m_database->getClient(clientId);
+    void Maintenance::getClient(unsigned int const clientId, std::vector<Person>* clients) const {
+        m_database->getClient(clientId, clients);
     }
 
     std::multimap<unsigned int, std::unique_ptr<IAccount>>::iterator Maintenance::findClientAccount(

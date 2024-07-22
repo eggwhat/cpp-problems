@@ -2,11 +2,11 @@
 
 namespace bank {
 
-    Account::Account(std::shared_ptr<Person> person, std::unique_ptr<IFunds> funds, AccountType accountType) :
+    Account::Account(Person person, std::unique_ptr<IFunds> funds, AccountType accountType) :
             m_accountType(accountType), m_person(std::move(person)), m_funds(std::move(funds)) {}
 
     unsigned int Account::getUserId() const {
-        return m_person->id;
+        return m_person.m_id;
     }
 
     void Account::depositMoney(double const money) const {

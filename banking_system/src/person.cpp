@@ -1,13 +1,13 @@
 #include <banking/person.h>
 
 namespace bank {
-    Person::Person(std::string firstName, std::string middleName, std::string lastName):
-            m_firstName(std::move(firstName)), m_middleName(std::move(middleName)),
-            m_lastName(std::move(lastName)), id{m_idCounter++} {
+
+    Person::Person(std::string firstName, std::string middleName, std::string lastName, unsigned int const id) :
+            m_id(id), m_firstName(std::move(firstName)),
+            m_middleName(std::move(middleName)), m_lastName(std::move(lastName)) {
 
     }
 
-    unsigned int Person::m_idCounter = 0;
 
     std::string Person::getPersonDetails() const {
         return !m_middleName.empty() ? m_firstName + " " + m_middleName + " " + m_lastName :

@@ -1,6 +1,9 @@
 #pragma once
 
 #include <string>
+#include <vector>
+
+#include "banking/person.h"
 
 namespace banking {
     class IDatabase {
@@ -12,6 +15,6 @@ namespace banking {
         virtual int createTable() = 0;
         virtual int insertData(std::string const& token, std::string const& jsonDetails) = 0;
         virtual int selectData() = 0;
-        virtual int getClient(unsigned int clientId) = 0;
+        virtual int getClient(unsigned int clientId, std::vector<bank::Person>* clients) = 0;
     };
 }

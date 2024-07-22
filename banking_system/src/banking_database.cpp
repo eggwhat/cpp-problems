@@ -1,7 +1,10 @@
 #include <banking/banking_database.h>
 
 #include <iostream>
+#include <cstdlib>
 #include <boost/format.hpp>
+
+#include "banking/person.h"
 
 namespace banking {
 
@@ -21,27 +24,35 @@ namespace banking {
     }
 
     int BankingDatabase::insertData(std::string const& token, std::string const& jsonDetails) {
-        auto query = boost::format("INSERT INTO Clients(Token, Details) VALUES('%1%', '%2%');")
-        % token % jsonDetails;
+        auto const query = boost::format("INSERT INTO Clients(Token, Details) VALUES('%1%', '%2%');")
+            % token % jsonDetails;
         return executeQuery(query.str(), nullptr, nullptr);
     }
 
     int BankingDatabase::selectData() {
         std::string const query = "SELECT * FROM Clients;";
-        return executeQuery(query, callback, nullptr);
+        return executeQuery(query, printCallback, nullptr);
     }
 
-    int BankingDatabase::getClient(unsigned int const clientId) {
+    int BankingDatabase::getClient(unsigned int const clientId, std::vector<bank::Person>* clients) {
         // TODO: fix security issue
         auto const query = boost::format("SELECT * FROM Clients WHERE Id = %1%;") % clientId;
-        return executeQuery(query.str(), callback, nullptr);
+
+        return executeQuery(query.str(), getCallback, clients);
     }
 
-    int BankingDatabase::callback(void* data, int argc, char** argv, char** azColName) {
+    int BankingDatabase::printCallback(void* data, int argc, char** argv, char** azColName) {
         for (int i = 0; i < argc; ++i) {
             std::cout << azColName[i] << ": " << (argv[i] ? argv[i] : "NULL") << '\n';
         }
         std::cout << '\n';
         return 0;
     }
+
+    int BankingDatabase::getCallback(void* data, int argc, char** argv, char** azColName) {
+        auto* results = static_cast<std::vector<bank::Person> *>(data);
+        results->emplace_back(argv[0], argv[1], argv[2], std::atoi(argv[0]));
+        return 0;
+    }
+
 }
