@@ -9,7 +9,7 @@ namespace bank {
 
     class StandardAccount: public Account {
     public:
-        explicit StandardAccount(Person person, std::unique_ptr<IFunds> funds);
+        explicit StandardAccount(unsigned int const clientId, std::unique_ptr<IFunds> funds);
 
         std::string getDetails() override;
     };

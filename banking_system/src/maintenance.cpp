@@ -28,10 +28,11 @@ namespace bank {
         m_database->selectData();
     }
 
-    void Maintenance::listClientAccounts() const {
+    void Maintenance::listClientAccounts(std::unique_ptr<Person> const& client) const {
         int index = 0;
         for(auto const& account: m_accounts) {
-            std::cout << "Account nr " << index << ". Client: " << account.second->getDetails() << std::endl;
+            std::cout << "Account nr " << index << ". Client: " << client->getPersonDetails() << " " <<
+                account.second->getDetails() << std::endl;
             ++index;
         }
     }
@@ -54,7 +55,7 @@ namespace bank {
         return accountsCount;
     }
 
-    void Maintenance::getClient(unsigned int const clientId, std::vector<Person>* clients) const {
+    void Maintenance::getClient(unsigned int const clientId, std::vector<std::unique_ptr<Person>>* clients) const {
         m_database->getClient(clientId, clients);
     }
 

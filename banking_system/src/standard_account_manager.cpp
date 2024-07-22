@@ -9,8 +9,8 @@ namespace bank {
         return account->getDetails();
     }
 
-    std::unique_ptr<IAccount> StandardAccountManager::createAccount(Person const& person, std::unique_ptr<IFunds> funds) {
-        return std::make_unique<StandardAccount>(person, std::move(funds));
+    std::unique_ptr<IAccount> StandardAccountManager::createAccount(std::unique_ptr<Person> const& person, std::unique_ptr<IFunds> funds) {
+        return std::make_unique<StandardAccount>(person->m_id, std::move(funds));
     }
 
     void StandardAccountManager::depositMoney(std::unique_ptr<IAccount> const& account, double const money) {

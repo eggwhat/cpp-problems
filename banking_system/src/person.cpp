@@ -8,7 +8,6 @@ namespace bank {
 
     }
 
-
     std::string Person::getPersonDetails() const {
         return !m_middleName.empty() ? m_firstName + " " + m_middleName + " " + m_lastName :
         m_firstName + " " + m_lastName;
@@ -20,9 +19,9 @@ namespace bank {
         root["lastName"] = m_lastName;
     }
 
-    void Person::deserialize(Json::Value& root) {
-        m_firstName = root.get("firstName", "UTF-8").asString();
-        m_middleName = root.get("middleName", "UTF-8").asString();
-        m_lastName = root.get("lastName", "UTF-8").asString();
+    void Person::deserialize(Json::Value const& root) {
+        m_firstName = root.get("firstName", "").asString();
+        m_middleName = root.get("middleName", "").asString();
+        m_lastName = root.get("lastName", "").asString();
     }
 } // bank

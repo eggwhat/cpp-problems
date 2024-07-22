@@ -79,9 +79,9 @@ namespace bank_cli {
         m_maintenance.listClients();
         unsigned int clientId;
         std::cin >> clientId;
-        auto clients = std::make_unique<std::vector<bank::Person>>();
+        auto clients = std::make_unique<std::vector<std::unique_ptr<bank::Person>>>();
         m_maintenance.getClient(clientId, clients.get());
-        std::cout << clients->operator[](0).getPersonDetails() << std::endl;
+        std::cout << clients->operator[](0)->getPersonDetails() << std::endl;
 
         std::cout << "Choose an option: " << std::endl;
         std::cout << "1) create a new account: " << std::endl;
@@ -120,7 +120,7 @@ namespace bank_cli {
             }
             case 2: {
                 std::cout << "Client accounts: " << std::endl;
-                m_maintenance.listClientAccounts();
+                m_maintenance.listClientAccounts(clients->operator[](0));
                 std::cout << "Choose account: " << std::endl;
                 int const accountIndex = chooseOption(0,m_maintenance.getClientAccountsCount(clientId));
                 auto const& account = m_maintenance.findClientAccount(clientId, accountIndex)->second;

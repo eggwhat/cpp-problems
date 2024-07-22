@@ -5,6 +5,7 @@
 #include <boost/format.hpp>
 
 #include "banking/person.h"
+#include "utils/json_serializer.h"
 
 namespace banking {
 
@@ -34,7 +35,7 @@ namespace banking {
         return executeQuery(query, printCallback, nullptr);
     }
 
-    int BankingDatabase::getClient(unsigned int const clientId, std::vector<bank::Person>* clients) {
+    int BankingDatabase::getClient(unsigned int const clientId, std::vector<std::unique_ptr<bank::Person>>* clients) {
         // TODO: fix security issue
         auto const query = boost::format("SELECT * FROM Clients WHERE Id = %1%;") % clientId;
 
@@ -50,9 +51,10 @@ namespace banking {
     }
 
     int BankingDatabase::getCallback(void* data, int argc, char** argv, char** azColName) {
-        auto* results = static_cast<std::vector<bank::Person> *>(data);
-        results->emplace_back(argv[0], argv[1], argv[2], std::atoi(argv[0]));
+        auto* results = static_cast<std::vector<std::unique_ptr<bank::Person>> *>(data);
+        auto client = std::make_unique<bank::Person>("", argv[2], argv[1], std::atoi(argv[0]));
+        JsonSerializer::deserialize(client.get(), argv[2]);
+        results->emplace_back(std::move(client));
         return 0;
     }
-
 }
