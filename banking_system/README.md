@@ -28,3 +28,16 @@ Run
 ./build/apps/banking_system
 ```
 
+## Debugging
+
+Install packages with Conan
+```bash
+conan install . --output-folder=build --build=missing -pr debugprofile
+```
+Build
+```bash
+cd build;
+cmake .. -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Debug -GNinja;
+cmake --build .;
+```
+
