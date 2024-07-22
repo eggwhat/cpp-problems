@@ -9,10 +9,12 @@ namespace bank {
     }
 
     void Funds::depositMoney(double const money) {
+        std::lock_guard<std::mutex> const lock(m_mutex);
         m_amountOfMoney += money;
     }
 
     void Funds::withdrawMoney(double const money) {
+        std::lock_guard<std::mutex> const lock(m_mutex);
         if(0.0 > m_amountOfMoney - money) {
             throw exceptions::NotEnoughFunds();
         }

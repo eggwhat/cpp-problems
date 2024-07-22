@@ -1,5 +1,7 @@
 #pragma once
 
+#include <mutex>
+
 #include "interfaces/i_account.h"
 #include "interfaces/i_funds.h"
 #include "person.h"
@@ -20,5 +22,6 @@ namespace bank {
     protected:
         unsigned int const m_clientId;
         std::unique_ptr<IFunds> m_funds;
+        std::mutex m_mutex;
     };
 }
