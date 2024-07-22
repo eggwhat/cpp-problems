@@ -57,6 +57,9 @@ namespace bank {
 
     void Maintenance::getClient(unsigned int const clientId, std::vector<std::unique_ptr<Person>>* clients) const {
         m_database->getClient(clientId, clients);
+        if(clients->empty()) {
+            throw exceptions::ClientNotFound();
+        }
     }
 
     std::multimap<unsigned int, std::unique_ptr<IAccount>>::iterator Maintenance::findClientAccount(
