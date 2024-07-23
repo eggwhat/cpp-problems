@@ -50,11 +50,11 @@ namespace bank_cli {
     void CommandLineInterface::createNewClientProfile() {
         std::cin.ignore();
         std::cout << "Provide a first name:" << std::endl;
-        std::string firstName = provideAlphanumericString("first name");
+        std::string firstName = provideAlphanumericString("first name", true);
         std::cout << "Provide a middle name:" << std::endl;
-        std::string middleName = provideAlphanumericString("middle name");
+        std::string middleName = provideAlphanumericString("middle name", false);
         std::cout << "Provide a last name:" << std::endl;
-        std::string lastName = provideAlphanumericString("last name");
+        std::string lastName = provideAlphanumericString("last name", true);
         m_maintenance.addClient(std::make_unique<bank::Person>(bank::Person(firstName, middleName, lastName)));
     }
 
@@ -164,9 +164,12 @@ namespace bank_cli {
         return option;
     }
 
-    std::string CommandLineInterface::provideAlphanumericString(std::string const& fieldName) {
+    std::string CommandLineInterface::provideAlphanumericString(std::string const& fieldName, bool const emptyValueValidation) {
         std::string value;
         std::getline(std::cin, value);
+        if(!emptyValueValidation && value.empty()) {
+            return value;
+        }
         validators::PersonValidator const validator;
         if(!validator.validateName(value)) {
             throw exceptions::InvalidPersonDataInput(fieldName);
