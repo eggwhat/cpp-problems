@@ -33,6 +33,17 @@ First create a new conan profile and set its build_type to Debug
 ```bash
 conan profile new debugprofile --detect   
 ```
+Example profile
+```
+[settings]
+arch=armv8
+build_type=Debug
+compiler=clang
+compiler.cppstd=gnu14
+compiler.libcxx=libc++
+compiler.version=12
+os=Macos
+```
 
 
 Install packages with Conan
