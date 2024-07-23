@@ -29,6 +29,11 @@ Run
 ```
 
 ## Debugging
+First create a new conan profile and set its build_type to Debug
+```bash
+conan profile new debugprofile --detect   
+```
+
 
 Install packages with Conan
 ```bash
