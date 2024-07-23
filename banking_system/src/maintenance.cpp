@@ -20,7 +20,7 @@
 namespace bank {
     Maintenance::Maintenance() {
         m_database = std::make_unique<banking::BankingDatabase>();
-        m_database->openDatabase("bank.db");
+        m_database->openDatabase("file:../../bank.db");
         m_database->createTable();
     }
 

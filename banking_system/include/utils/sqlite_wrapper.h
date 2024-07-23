@@ -20,7 +20,8 @@ namespace banking {
         static std::unique_ptr<sqlite3, Closer> makeSqlite(std::string const& dbName)
         {
             sqlite3* buffer = nullptr;
-            int const err = sqlite3_open(dbName.c_str(), &buffer);
+            int const err = sqlite3_open_v2(dbName.c_str(), &buffer, SQLITE_OPEN_READWRITE | SQLITE_OPEN_URI,
+                nullptr);
             if (err) {
                 throw std::runtime_error("failed to open sqlite");
             }
