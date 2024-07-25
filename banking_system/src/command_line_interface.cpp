@@ -25,7 +25,7 @@ namespace bank_cli {
                 std::cout << "3) list accounts statistics: " << std::endl;
                 std::cout << "4) quit " << std::endl;
 
-                switch (chooseOption(1,3)) {
+                switch (chooseOption(1,4)) {
                     case 1:
                         createNewClientProfile();
                     break;
@@ -50,12 +50,12 @@ namespace bank_cli {
     void CommandLineInterface::createNewClientProfile() {
         std::cin.ignore();
         std::cout << "Provide a first name:" << std::endl;
-        std::string firstName = provideAlphanumericString("first name");
+        std::string firstName = provideAlphanumericString("first name", true);
         std::cout << "Provide a middle name:" << std::endl;
-        std::string middleName = provideAlphanumericString("middle name");
+        std::string middleName = provideAlphanumericString("middle name", false);
         std::cout << "Provide a last name:" << std::endl;
-        std::string lastName = provideAlphanumericString("last name");
-        m_maintenance.addClient(std::make_shared<bank::Person>(firstName, middleName, lastName));
+        std::string lastName = provideAlphanumericString("last name", true);
+        m_maintenance.addClient(std::make_unique<bank::Person>(bank::Person(firstName, middleName, lastName)));
     }
 
     void CommandLineInterface::depositMoney(std::unique_ptr<bank::IManager> const& accountManager, std::unique_ptr<bank::IAccount> const& account) {
@@ -79,7 +79,9 @@ namespace bank_cli {
         m_maintenance.listClients();
         unsigned int clientId;
         std::cin >> clientId;
-        auto const client = m_maintenance.getClient(clientId);
+        auto client = std::make_unique<std::unique_ptr<bank::Person>>();
+        m_maintenance.getClient(clientId, client);
+        std::cout << client->get()->getPersonDetails() << std::endl;
 
         std::cout << "Choose an option: " << std::endl;
         std::cout << "1) create a new account: " << std::endl;
@@ -114,11 +116,11 @@ namespace bank_cli {
                     manager = standardAccountManagerFactory.createManager();
                     funds = std::make_unique<bank::FundsEUR>(0.0);
                 }
-                m_maintenance.addAccount(manager->createAccount(client, std::move(funds)));
+                m_maintenance.addAccount(manager->createAccount(*client, std::move(funds)));
             }
             case 2: {
                 std::cout << "Client accounts: " << std::endl;
-                m_maintenance.listClientAccounts();
+                m_maintenance.listClientAccounts(*client);
                 std::cout << "Choose account: " << std::endl;
                 int const accountIndex = chooseOption(0,m_maintenance.getClientAccountsCount(clientId));
                 auto const& account = m_maintenance.findClientAccount(clientId, accountIndex)->second;
@@ -162,9 +164,12 @@ namespace bank_cli {
         return option;
     }
 
-    std::string CommandLineInterface::provideAlphanumericString(std::string const& fieldName) {
+    std::string CommandLineInterface::provideAlphanumericString(std::string const& fieldName, bool const emptyValueValidation) {
         std::string value;
         std::getline(std::cin, value);
+        if(!emptyValueValidation && value.empty()) {
+            return value;
+        }
         validators::PersonValidator const validator;
         if(!validator.validateName(value)) {
             throw exceptions::InvalidPersonDataInput(fieldName);

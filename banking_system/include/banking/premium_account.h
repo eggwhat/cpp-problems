@@ -10,7 +10,7 @@ namespace bank {
 
     class PremiumAccount: public Account {
     public:
-        explicit PremiumAccount(std::shared_ptr<Person> person, std::unique_ptr<IFunds> funds);
+        explicit PremiumAccount(unsigned int const clientId, std::unique_ptr<IFunds> funds);
 
         std::string getDetails() override;
     private:

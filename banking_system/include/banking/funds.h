@@ -1,5 +1,7 @@
 #pragma once
 
+#include <mutex>
+
 #include "interfaces/i_funds.h"
 
 namespace bank {
@@ -12,5 +14,7 @@ namespace bank {
         void withdrawMoney(double money) final;
     protected:
         double m_amountOfMoney;
+    private:
+        std::mutex m_mutex;
     };
 }

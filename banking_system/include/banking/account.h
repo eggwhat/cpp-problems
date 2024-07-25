@@ -1,5 +1,7 @@
 #pragma once
 
+#include <mutex>
+
 #include "interfaces/i_account.h"
 #include "interfaces/i_funds.h"
 #include "person.h"
@@ -9,7 +11,7 @@ namespace bank {
     public:
         enum class AccountType { Standard, Premium };
 
-        explicit Account(std::shared_ptr<Person> person, std::unique_ptr<IFunds> funds, AccountType accountType);
+        explicit Account(unsigned int clientId, std::unique_ptr<IFunds> funds, AccountType accountType);
 
         unsigned int getUserId() const final;
         void depositMoney(double money) const final;
@@ -18,7 +20,7 @@ namespace bank {
 
         AccountType m_accountType;
     protected:
-        std::shared_ptr<Person> m_person;
+        unsigned int const m_clientId;
         std::unique_ptr<IFunds> m_funds;
     };
 }

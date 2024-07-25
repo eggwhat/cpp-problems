@@ -2,10 +2,10 @@
 
 namespace banking {
 
-    bool JsonSerializer::serialize(std::shared_ptr<IJsonSerializable> const& obj, std::string& output )
+    bool JsonSerializer::serialize(IJsonSerializable* const pObj, std::string& output )
     {
         Json::Value serializeRoot;
-        obj->serialize(serializeRoot);
+        pObj->serialize(serializeRoot);
 
         Json::StyledWriter writer;
         output = writer.write( serializeRoot );
@@ -13,7 +13,7 @@ namespace banking {
         return true;
     }
 
-    bool JsonSerializer::deserialize(std::shared_ptr<IJsonSerializable> const& obj, std::string const& input )
+    bool JsonSerializer::deserialize(IJsonSerializable* const pObj, std::string const& input )
     {
         Json::Value deserializeRoot;
         Json::Reader reader;
@@ -21,7 +21,7 @@ namespace banking {
         if (!reader.parse(input, deserializeRoot) )
             return false;
 
-        obj->deserialize(deserializeRoot);
+        pObj->deserialize(deserializeRoot);
 
         return true;
     }

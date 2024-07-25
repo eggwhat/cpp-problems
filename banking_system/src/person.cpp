@@ -1,13 +1,12 @@
 #include <banking/person.h>
 
 namespace bank {
-    Person::Person(std::string firstName, std::string middleName, std::string lastName):
-            m_firstName(std::move(firstName)), m_middleName(std::move(middleName)),
-            m_lastName(std::move(lastName)), id{m_idCounter++} {
+
+    Person::Person(std::string firstName, std::string middleName, std::string lastName, unsigned int const id) :
+            m_id(id), m_firstName(std::move(firstName)),
+            m_middleName(std::move(middleName)), m_lastName(std::move(lastName)) {
 
     }
-
-    unsigned int Person::m_idCounter = 0;
 
     std::string Person::getPersonDetails() const {
         return !m_middleName.empty() ? m_firstName + " " + m_middleName + " " + m_lastName :
@@ -20,9 +19,9 @@ namespace bank {
         root["lastName"] = m_lastName;
     }
 
-    void Person::deserialize(Json::Value& root) {
-        m_firstName = root.get("firstName", "UTF-8").asString();
-        m_middleName = root.get("middleName", "UTF-8").asString();
-        m_lastName = root.get("lastName", "UTF-8").asString();
+    void Person::deserialize(Json::Value const& root) {
+        m_firstName = root.get("firstName", "").asString();
+        m_middleName = root.get("middleName", "").asString();
+        m_lastName = root.get("lastName", "").asString();
     }
 } // bank

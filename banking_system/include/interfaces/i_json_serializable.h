@@ -7,6 +7,6 @@ namespace banking {
     public:
         virtual ~IJsonSerializable() = default;
         virtual void serialize(Json::Value& root ) = 0;
-        virtual void deserialize(Json::Value& root) = 0;
+        virtual void deserialize(Json::Value const& root) = 0;
     };
 }

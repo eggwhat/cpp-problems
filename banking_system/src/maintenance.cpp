@@ -13,24 +13,26 @@
 #include <exceptions/no_accounts_found_for_given_client_id.h>
 #include <exceptions/no_clients_present.h>
 
+#include "banking/banking_database.h"
+#include "utils/json_serializer.h"
+
 
 namespace bank {
-    Maintenance::Maintenance() : m_clients(std::vector<std::shared_ptr<Person>>()) {}
-
-    void Maintenance::listClients() const {
-        if (m_clients.empty()) {
-            throw exceptions::NoClientsPresent();
-        }
-
-        for(auto const& client: m_clients) {
-            std::cout << "Client ID: " << client->id << ". Details: " << client->getPersonDetails() << std::endl;
-        }
+    Maintenance::Maintenance() {
+        m_database = std::make_unique<banking::BankingDatabase>();
+        m_database->openDatabase("file:../../bank.db");
+        m_database->createTable();
     }
 
-    void Maintenance::listClientAccounts() const {
+    void Maintenance::listClients() const {
+        m_database->selectData();
+    }
+
+    void Maintenance::listClientAccounts(std::unique_ptr<Person> const& client) const {
         int index = 0;
         for(auto const& account: m_accounts) {
-            std::cout << "Account nr " << index << ". Client: " << account.second->getDetails() << std::endl;
+            std::cout << "Account nr " << index << ". Client: " << client->getPersonDetails() << " " <<
+                account.second->getDetails() << std::endl;
             ++index;
         }
     }
@@ -53,14 +55,11 @@ namespace bank {
         return accountsCount;
     }
 
-    std::shared_ptr<Person> Maintenance::getClient(unsigned int clientId) const {
-        auto const it =  std::find_if(m_clients.begin(), m_clients.end(),
-            [=](std::shared_ptr<Person> const& client){ return clientId == client->id;});
-        if(it == std::end(m_clients)) {
+    void Maintenance::getClient(unsigned int const clientId, std::unique_ptr<std::unique_ptr<Person>> const& client) const {
+        m_database->getClient(clientId, client);
+        if(*client == nullptr) {
             throw exceptions::ClientNotFound();
         }
-
-        return *it;
     }
 
     std::multimap<unsigned int, std::unique_ptr<IAccount>>::iterator Maintenance::findClientAccount(
@@ -73,8 +72,10 @@ namespace bank {
         return it;
     }
 
-    void Maintenance::addClient(std::shared_ptr<Person> client) {
-        m_clients.push_back(std::move(client));
+    void Maintenance::addClient(std::unique_ptr<Person> const& client) {
+        std::string serializedClient;
+        banking::JsonSerializer::serialize(client.get(), serializedClient);
+        m_database->insertData(client->getPersonDetails(), serializedClient);
     }
 
     void Maintenance::addAccount(std::unique_ptr<IAccount> account) {
